@@ -10,11 +10,20 @@
   body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif; color:var(--ink); background:var(--bg); }
   .wrap { max-width:860px; margin:0 auto; padding:20px 16px 80px; }
   h1 { font-size:22px; margin:8px 0 4px; }
-  .sub { color:var(--mut); font-size:13px; margin-bottom:20px; }
+  .sub { color:var(--mut); font-size:13px; margin-bottom:16px; }
+  details.set { background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin-bottom:14px; font-size:13px; }
+  details.set summary { cursor:pointer; font-weight:bold; font-size:14px; }
+  .setgrid { display:grid; gap:10px; margin-top:10px; }
+  .setgrid label { display:block; color:var(--mut); font-size:12px; margin-bottom:4px; }
+  input[type=text], input[type=password], select { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:inherit; }
+  input[type=number] { width:70px; padding:6px; border:1px solid var(--line); border-radius:6px; }
+  .tabs { display:flex; gap:6px; margin-bottom:14px; }
+  .tab { flex:1; text-align:center; padding:11px 4px; border-radius:10px; border:1px solid var(--line); background:#fff; font-size:14px; cursor:pointer; }
+  .tab.on { background:var(--ink); color:#fff; border-color:var(--ink); }
   .step { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:14px; }
   .step h2 { font-size:15px; margin:0 0 10px; }
   .step h2 .n { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center; background:var(--ink); color:#fff; border-radius:50%; font-size:12px; margin-right:6px; }
-  textarea { width:100%; min-height:140px; border:1px solid var(--line); border-radius:8px; padding:10px; font-size:14px; line-height:1.6; resize:vertical; font-family:inherit; }
+  textarea { width:100%; min-height:130px; border:1px solid var(--line); border-radius:8px; padding:10px; font-size:14px; line-height:1.6; resize:vertical; font-family:inherit; }
   textarea.mono { font-family:ui-monospace,Menlo,monospace; font-size:12.5px; }
   .row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; }
   button { border:0; border-radius:8px; padding:10px 16px; font-size:14px; cursor:pointer; }
@@ -22,7 +31,7 @@
   .btn-s { background:#eee; color:var(--ink); }
   button:disabled { opacity:.45; cursor:default; }
   .hint { font-size:12.5px; color:var(--mut); margin-top:8px; line-height:1.6; }
-  .promptbox { background:#f4f6fb; border:1px dashed var(--acc); border-radius:8px; padding:12px; font-size:12.5px; white-space:pre-wrap; max-height:320px; overflow:auto; margin-top:10px; display:none; }
+  .promptbox { background:#f4f6fb; border:1px dashed var(--acc); border-radius:8px; padding:12px; font-size:12.5px; white-space:pre-wrap; max-height:300px; overflow:auto; margin-top:10px; display:none; }
   .out { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; white-space:pre-wrap; font-size:14px; line-height:1.8; }
   table.map { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
   table.map th, table.map td { border:1px solid var(--line); padding:8px; text-align:left; vertical-align:top; }
@@ -32,82 +41,292 @@
   .badge.ok { background:#e6f4ea; color:#137333; }
   .badge.miss { background:#fdecea; color:var(--warn); }
   .warnbox { border:1px solid var(--warn); background:#fff5f5; border-radius:8px; padding:10px 12px; font-size:13px; margin-top:10px; display:none; }
-  .setrow { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--mut); }
-  input[type=number] { width:70px; padding:6px; border:1px solid var(--line); border-radius:6px; }
-  .done-label { font-size:12px; color:var(--mut); margin-left:6px; }
+  .errbox { border:1px solid var(--warn); background:#fff5f5; border-radius:8px; padding:10px 12px; font-size:13px; margin-top:10px; display:none; color:var(--warn); }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .chip { background:#f0f3ff; border:1px solid #ccd6ff; color:#1a2a8f; border-radius:16px; padding:6px 12px; font-size:12.5px; cursor:pointer; }
+  .loading { display:none; font-size:13px; color:var(--acc); margin-top:8px; }
+  .spin { display:inline-block; width:12px; height:12px; border:2px solid #cdd8ff; border-top-color:var(--acc); border-radius:50%; animation:sp 0.8s linear infinite; vertical-align:-1px; margin-right:6px; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+  .modepane { display:none; }
+  .modepane.on { display:block; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>📝 개조식 메이커</h1>
-  <div class="sub">초안을 개조식(□/○·명사형 종결)으로 다듬기 — 구독 중인 Claude와 함께 씁니다</div>
+  <div class="sub">초안→개조식 · 보고서 개선 · 보도자료 변환 — Claude와 함께  </div>
 
-  <div class="step">
-    <h2><span class="n">1</span>초안 입력</h2>
-    <textarea id="draft" placeholder="다듬을 초안을 붙여넣으세요"></textarea>
-    <div class="row">
-      <button class="btn-s" id="btnSample">예시 초안 넣어보기</button>
-      <label class="btn-s" style="cursor:pointer">파일/사진 선택
-        <input type="file" id="fileInput" accept=".hwpx,.pdf,.jpg,.jpeg,.png,.webp,.bmp" style="display:none">
-      </label>
-      <span class="hint" id="fileStatus" style="margin:0"></span>
+  <details class="set">
+    <summary>⚙ 설정</summary>
+    <div class="setgrid">
+      <div>
+        <label>Anthropic API 키 (선택 — 입력하면 원클릭 실행, 미입력 시 프롬프트 복사 방식)</label>
+        <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off">
+      </div>
+      <div>
+        <label>모델</label>
+        <select id="model">
+          <option value="claude-sonnet-5">claude-sonnet-5 (권장 · 문서 품질)</option>
+          <option value="claude-sonnet-5-5">claude-sonnet-5-5 (최신)</option>
+          <option value="claude-haiku-4-5-20251001">claude-haiku-4-5 (빠름 · 저렴)</option>
+        </select>
+      </div>
+      <div>
+        <label>2줄 기준 글자 수</label>
+        <input type="number" id="charLimit" value="80" min="40" max="200" style="width:90px">
+      </div>
+      <div class="hint" style="margin:0">API 키는 이 브라우저에만 저장되며 api.anthropic.com으로만 전송됩니다. 구독과 별도 과금이며 건당 수십원 수준(Sonnet 기준)입니다.</div>
     </div>
-    <div class="hint">hwpx · pdf · 사진(jpg/png)에서 초안 텍스트를 추출합니다. 구형 hwp는 미지원. 모든 처리는 브라우저 안에서 이뤄지며 서버로 전송되지 않습니다.</div>
-    <div class="row">
-      <span class="setrow">2줄 기준 <input type="number" id="charLimit" value="80" min="40" max="200"> 자</span>
+  </details>
+
+  <div class="tabs">
+    <div class="tab on" data-mode="gaejo">초안 → 개조식</div>
+    <div class="tab" data-mode="improve">보고서 개선</div>
+    <div class="tab" data-mode="press">→ 보도자료</div>
+    <div class="tab" data-mode="speech">말씀자료</div>
+  </div>
+
+  <!-- ============ MODE 1: 초안 → 개조식 ============ -->
+  <div class="modepane on" id="pane-gaejo">
+    <div class="step">
+      <h2><span class="n">1</span>초안 입력</h2>
+      <textarea id="draft" placeholder="다듬을 초안을 붙여넣으세요"></textarea>
+      <div class="row">
+        <button class="btn-s" id="btnSample">예시 초안 넣어보기</button>
+        <label class="btn-s" style="cursor:pointer">파일/사진 선택
+          <input type="file" id="fileInput1" accept=".hwpx,.pdf,.jpg,.jpeg,.png,.webp,.bmp" style="display:none">
+        </label>
+        <span class="hint" id="fileStatus1" style="margin:0"></span>
+      </div>
+      <div class="hint">hwpx · pdf · 사진(jpg/png)에서 텍스트를 추출합니다. 모든 처리는 브라우저 안에서 이뤄집니다.</div>
+    </div>
+    <div class="step">
+      <h2><span class="n">2</span>실행</h2>
+      <div class="row">
+        <button class="btn-p" id="btnRun1">⚡ 바로 변환하기</button>
+        <button class="btn-s" id="btnPrompt1">프롬프트 복사</button>
+      </div>
+      <div class="hint" id="runHint1">API 키가 없으면 프롬프트를 복사해 클로드 앱에 붙여넣고 실행하세요.</div>
+      <div class="loading" id="loading1"><span class="spin"></span>Claude가 변환 중...</div>
+      <div class="errbox" id="err1"></div>
+      <div class="promptbox" id="promptBox1"></div>
+    </div>
+    <div class="step">
+      <h2><span class="n">3</span>결과 확인 <span style="font-size:12px;color:var(--mut)" id="missSummary1"></span></h2>
+      <div class="warnbox" id="warnBox1"></div>
+      <div class="out" id="convOut1" style="display:none"></div>
+      <div id="mapOut1"></div>
+      <div class="row" id="actionRow1" style="display:none">
+        <button class="btn-s" id="btnCopyResult1">변환문 복사</button>
+        <button class="btn-s" id="btnDownload1">.md 다운로드</button>
+      </div>
+      <div class="hint">프롬프트 복사 방식으로 실행했다면, Claude의 출력(## 변환문 + ## 매핑표)을 아래에 붙여넣고 [결과 보기]를 누르세요.</div>
+      <textarea id="resultPaste1" class="mono" style="min-height:90px;margin-top:8px" placeholder="Claude 출력 붙여넣기 (브릿지 방식일 때만)"></textarea>
+      <div class="row"><button class="btn-s" id="btnReview1">결과 보기</button></div>
     </div>
   </div>
 
-  <div class="step">
-    <h2><span class="n">2</span>프롬프트 만들기</h2>
-    <div class="row">
-      <button class="btn-p" id="btnPrompt">프롬프트 생성</button>
-      <button class="btn-s" id="btnCopyPrompt" disabled>프롬프트 복사</button>
+  <!-- ============ MODE 2: 보고서 개선 ============ -->
+  <div class="modepane" id="pane-improve">
+    <div class="step">
+      <h2><span class="n">1</span>기존 보고서 입력 (개조식)</h2>
+      <textarea id="report" placeholder="개선할 개조식 보고서를 붙여넣으세요"></textarea>
+      <div class="row">
+        <button class="btn-s" id="btnSampleReport">예시 보고서 넣어보기</button>
+        <label class="btn-s" style="cursor:pointer">파일/사진 선택
+          <input type="file" id="fileInput2" accept=".hwpx,.pdf,.jpg,.jpeg,.png,.webp,.bmp" style="display:none">
+        </label>
+        <span class="hint" id="fileStatus2" style="margin:0"></span>
+      </div>
     </div>
-    <div class="hint">생성된 프롬프트를 복사해서 클로드 앱(또는 코워크·채팅)에 붙여넣고 실행하세요. 구독 사용량으로 처리됩니다.</div>
-    <div class="promptbox" id="promptBox"></div>
+    <div class="step">
+      <h2><span class="n">2</span>개선 방향</h2>
+      <textarea id="direction" style="min-height:70px" placeholder="예: 2줄로 압축하고, 수치 근거를 보강해줘"></textarea>
+      <div class="chips" id="dirChips">
+        <span class="chip">2줄로 압축</span><span class="chip">논리 흐름 강화</span>
+        <span class="chip">보고용으로 격상</span><span class="chip">수치 근거 보강</span>
+        <span class="chip">중복 제거</span><span class="chip">쉬운 표현으로</span>
+      </div>
+    </div>
+    <div class="step">
+      <h2><span class="n">3</span>실행</h2>
+      <div class="row">
+        <button class="btn-p" id="btnRun2">⚡ 바로 개선하기</button>
+        <button class="btn-s" id="btnPrompt2">프롬프트 복사</button>
+      </div>
+      <div class="hint">API 키가 없으면 프롬프트를 복사해 클로드 앱에 붙여넣고 실행하세요.</div>
+      <div class="loading" id="loading2"><span class="spin"></span>Claude가 개선 중...</div>
+      <div class="errbox" id="err2"></div>
+      <div class="promptbox" id="promptBox2"></div>
+    </div>
+    <div class="step">
+      <h2><span class="n">4</span>개선 결과</h2>
+      <div class="out" id="convOut2" style="display:none"></div>
+      <div id="mapOut2"></div>
+      <div class="row" id="actionRow2" style="display:none">
+        <button class="btn-s" id="btnCopyResult2">개선문 복사</button>
+        <button class="btn-s" id="btnDownload2">.md 다운로드</button>
+      </div>
+      <div class="hint">프롬프트 복사 방식으로 실행했다면, Claude의 출력(## 개선문 + ## 변경점)을 아래에 붙여넣고 [결과 보기]를 누르세요.</div>
+      <textarea id="resultPaste2" class="mono" style="min-height:90px;margin-top:8px" placeholder="Claude 출력 붙여넣기 (브릿지 방식일 때만)"></textarea>
+      <div class="row"><button class="btn-s" id="btnReview2">결과 보기</button></div>
+    </div>
   </div>
 
-  <div class="step">
-    <h2><span class="n">3</span>Claude 결과 붙여넣기</h2>
-    <textarea id="result" class="mono" placeholder="Claude의 출력(## 변환문 + ## 매핑표)을 그대로 붙여넣으세요"></textarea>
-    <div class="row">
-      <button class="btn-p" id="btnReview">검수 보기</button>
+  <!-- ============ MODE 3: 보도자료 변환 ============ -->
+  <div class="modepane" id="pane-press">
+    <div class="step">
+      <h2><span class="n">1</span>개조식 보고서 입력</h2>
+      <textarea id="reportPr" placeholder="보도자료로 바꿀 개조식 보고서를 붙여넣으세요"></textarea>
+      <div class="row">
+        <button class="btn-s" id="btnSampleReportPr">예시 보고서 넣어보기</button>
+        <label class="btn-s" style="cursor:pointer">파일/사진 선택
+          <input type="file" id="fileInput3" accept=".hwpx,.pdf,.jpg,.jpeg,.png,.webp,.bmp" style="display:none">
+        </label>
+        <span class="hint" id="fileStatus3" style="margin:0"></span>
+      </div>
+    </div>
+    <div class="step">
+      <h2><span class="n">2</span>실행</h2>
+      <div class="row">
+        <button class="btn-p" id="btnRun3">⚡ 보도자료 만들기</button>
+        <button class="btn-s" id="btnPrompt3">프롬프트 복사</button>
+      </div>
+      <div class="hint">API 키가 없으면 프롬프트를 복사해 클로드 앱에 붙여넣고 실행하세요.</div>
+      <div class="loading" id="loading3"><span class="spin"></span>Claude가 작성 중...</div>
+      <div class="errbox" id="err3"></div>
+      <div class="promptbox" id="promptBox3"></div>
+    </div>
+    <div class="step">
+      <h2><span class="n">3</span>보도자료</h2>
+      <div class="out" id="convOut3" style="display:none"></div>
+      <div class="row" id="actionRow3" style="display:none">
+        <button class="btn-s" id="btnCopyResult3">보도자료 복사</button>
+        <button class="btn-s" id="btnDownload3">.md 다운로드</button>
+      </div>
+      <div class="hint">프롬프트 복사 방식으로 실행했다면, Claude의 출력(## 보도자료)을 아래에 붙여넣고 [결과 보기]를 누르세요.</div>
+      <textarea id="resultPaste3" class="mono" style="min-height:90px;margin-top:8px" placeholder="Claude 출력 붙여넣기 (브릿지 방식일 때만)"></textarea>
+      <div class="row"><button class="btn-s" id="btnReview3">결과 보기</button></div>
     </div>
   </div>
-
-  <div class="step" id="reviewStep" style="display:none">
-    <h2><span class="n">4</span>변환문 <span class="done-label" id="missSummary"></span></h2>
-    <div class="warnbox" id="warnBox"></div>
-    <div class="out" id="convOut"></div>
-    <h2 style="margin-top:18px"><span class="n">5</span>대조 검수 (원문 → 반영 여부)</h2>
-    <div id="mapOut"></div>
-    <div class="row">
-      <button class="btn-s" id="btnCopyResult">변환문 복사</button>
-      <button class="btn-s" id="btnDownload">.md 다운로드</button>
+<!-- ============ MODE 4: 말씀자료 ============ -->
+  <div class="modepane" id="pane-speech">
+    <div class="step">
+      <h2><span class="n">1</span>보고서 입력 (개조식)</h2>
+      <textarea id="reportSp" placeholder="말씀자료의 근거가 될 보고서를 붙여넣으세요"></textarea>
+      <div class="row">
+        <button class="btn-s" id="btnSampleReportSp">예시 보고서 넣어보기</button>
+        <label class="btn-s" style="cursor:pointer">파일/사진 선택
+          <input type="file" id="fileInput4" accept=".hwpx,.pdf,.jpg,.jpeg,.png,.webp,.bmp" style="display:none">
+        </label>
+        <span class="hint" id="fileStatus4" style="margin:0"></span>
+      </div>
+    </div>
+    <div class="step">
+      <h2><span class="n">2</span>회의 개요</h2>
+      <textarea id="meeting" style="min-height:80px" placeholder="예:&#10;회의: 2026년 하반기 전국 세무관서장 회의&#10;일시: 2026년 8월 12일&#10;참석: 전국 세무관서장&#10;목적: 하반기 운영방안 공유 및 중점과제 논의"></textarea>
+      <div class="row">
+        <span class="setrow" style="font-size:13px">말씀자 <input type="text" id="speaker" placeholder="예: 국세청장" style="width:160px"></span>
+      </div>
+    </div>
+    <div class="step">
+      <h2><span class="n">3</span>실행</h2>
+      <div class="row">
+        <button class="btn-p" id="btnRun4">⚡ 말씀자료 만들기</button>
+        <button class="btn-s" id="btnPrompt4">프롬프트 복사</button>
+      </div>
+      <div class="hint">API 키가 없으면 프롬프트를 복사해 클로드 앱에 붙여넣고 실행하세요.</div>
+      <div class="loading" id="loading4"><span class="spin"></span>Claude가 작성 중...</div>
+      <div class="errbox" id="err4"></div>
+      <div class="promptbox" id="promptBox4"></div>
+    </div>
+    <div class="step">
+      <h2><span class="n">4</span>말씀자료</h2>
+      <div class="out" id="convOut4" style="display:none"></div>
+      <div id="mapOut4"></div>
+      <div class="row" id="actionRow4" style="display:none">
+        <button class="btn-s" id="btnCopyResult4">말씀자료 복사</button>
+        <button class="btn-s" id="btnDownload4">.md 다운로드</button>
+      </div>
+      <div class="hint">프롬프트 복사 방식으로 실행했다면, Claude의 출력(## 말씀자료)을 아래에 붙여넣고 [결과 보기]를 누르세요.</div>
+      <textarea id="resultPaste4" class="mono" style="min-height:90px;margin-top:8px" placeholder="Claude 출력 붙여넣기 (브릿지 방식일 때만)"></textarea>
+      <div class="row"><button class="btn-s" id="btnReview4">결과 보기</button></div>
     </div>
   </div>
+</div>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
 const store = {
+  get k() { return localStorage.getItem('gj_api_key') || ''; },
+  set k(v) { v ? localStorage.setItem('gj_api_key', v) : localStorage.removeItem('gj_api_key'); },
+  get model() { return localStorage.getItem('gj_model') || 'claude-sonnet-5'; },
+  set model(v) { localStorage.setItem('gj_model', v); },
   get limit() { return parseInt(localStorage.getItem('gj_limit') || '80', 10); },
   set limit(v) { localStorage.setItem('gj_limit', String(v)); }
 };
+$('apiKey').value = store.k;
+$('model').value = store.model;
 $('charLimit').value = store.limit;
+$('apiKey').addEventListener('change', e => { store.k = e.target.value.trim(); refreshRunButtons(); });
+$('model').addEventListener('change', e => { store.model = e.target.value; });
 $('charLimit').addEventListener('change', e => { store.limit = e.target.value; });
 
+function refreshRunButtons() {
+  const has = !!store.k;
+  ['btnRun1', 'btnRun2', 'btnRun3', 'btnRun4'].forEach(id => {
+    $(id).disabled = !has;
+    $(id).title = has ? '' : '설정에서 API 키를 입력하면 원클릭 실행됩니다';
+  });
+  $('runHint1').textContent = has
+    ? '⚡ 버튼 하나로 바로 변환됩니다.'
+    : 'API 키가 없으면 프롬프트를 복사해 클로드 앱에 붙여넣고 실행하세요.';
+}
+refreshRunButtons();
+
+// 탭
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('.modepane').forEach(x => x.classList.remove('on'));
+  t.classList.add('on');
+  $('pane-' + t.dataset.mode).classList.add('on');
+}));
+
+// ---------- 예시 ----------
 const EX1 = `① [세정혁신] 국세 체납관리단 출범 및 세무조사 패러다임 대전환
 ㅇ (체납관리 혁신) 올 3월 출범한 ｢국세 체납관리단(500명)｣은 6.5만명에 대한 실태확인 실시(3.5.∼6.30.), 총 274억원을 징수해 투입예산(70억) 대비 388% 실적
 ㅇ (세무조사 혁신) 현장조사 최소화, 시기선택제, 중점점검항목 사전공개 등 낡은 세무조사 관행을 근본적으로 혁신해 기업하기 좋은 세정환경 조성`;
-
 const EX2 = `① 세입예산 조달 및 납세서비스 개선
 ㅇ 글로벌 복합위기, 국내경기 둔화 등 어려운 대내외 여건 속에서 신고지원･세원관리로 세입예산 확보에 최선의 노력 경주`;
+const PRESS_EX = `취임 2년차 임광현 국세청장, "국가재정 혁신을 선도하고, 국민이 공감하는 공정한 세정 실천으로 '대체불가 대한민국' 뒷받침"
+- 8.12.(수) '26년 하반기 전국 세무관서장 회의 개최하여 ｢국세행정 운영방안｣ 등 공유
+- '국가재정 혁신을 위한 국세외수입 체납 통합징수', '하반기 세무조사 운영방향' 등 중점 논의
+□ 국세청(청장 임광현)은 8.12.(수) 정부세종2청사에서 전국 세무관서장 회의를 개최하여 앞으로의 ｢국세행정 운영방안｣을 발표하였다.`;
 
 const SAMPLE = `2026년 하반기에는 국세외수입 체납액의 징수와 관리를 국세청으로 통합하는 것을 본격적으로 추진하려고 합니다. 현재는 300개가 넘는 법률에 근거해서 64개 부처가 각자 부과하고 징수하고 있어서 비효율적입니다. 2027년부터 본격 시행하는 것을 목표로 하고 있으며, 올해 안에 관련 법률이 국회를 통과할 수 있도록 입법 절차를 지원할 예정입니다. 각 부처에 흩어져 있는 체납 정보를 모아서 체납자별 데이터베이스를 구축하고, 국세행정 시스템과 실시간으로 연계되는 통합관리시스템도 만들 계획입니다.`;
+const SAMPLE_REPORT = `□ 2026년 하반기 국세행정 운영방안
+ㅇ 든든한 국가재정을 뒷받침하기 위해 하반기 주요 세목의 성실신고 지원을 확대하고 체납관리단 운영을 강화함
+ㅇ 국세외수입 체납액의 징수·관리를 국세청으로 통합하여 통합 재정수입기관으로 도약함
+ㅇ 생성형 AI 기반 홈택스 AI 검색과 AI 전화상담을 개통하여 납세서비스를 혁신함
+ㅇ 악의적 고액체납자의 해외 은닉재산에 대해서는 전담팀을 신설하여 끝까지 추적·징수함`;
 
-function buildPrompt(draft, limit) {
+$('btnSample').addEventListener('click', () => { $('draft').value = SAMPLE; });
+$('btnSampleReport').addEventListener('click', () => { $('report').value = SAMPLE_REPORT; });
+$('btnSampleReportPr').addEventListener('click', () => { $('reportPr').value = SAMPLE_REPORT; });
+$('btnSampleReportSp').addEventListener('click', () => {
+  $('reportSp').value = SAMPLE_REPORT;
+  $('meeting').value = '회의: 2026년 하반기 전국 세무관서장 회의\n일시: 2026년 8월 12일\n참석: 전국 세무관서장\n목적: 하반기 국세행정 운영방안 공유 및 중점과제 논의';
+  $('speaker').value = '국세청장';
+});
+$('dirChips').addEventListener('click', e => {
+  if (!e.target.classList.contains('chip')) return;
+  const cur = $('direction').value.trim();
+  $('direction').value = cur ? cur + ', ' + e.target.textContent : e.target.textContent;
+});
+
+// ---------- 프롬프트 생성 ----------
+function buildGaejoPrompt(draft, limit) {
   return `당신은 대한민국 국세청의 공문서 작성 전문가입니다. 아래 [초안]을 개조식 공문서 문체로 다듬어주세요.
 
 [작성 규칙]
@@ -138,11 +357,291 @@ ${draft}
 (누락된 핵심이 없으면 마지막 줄에 "누락 없음"이라고 기재)`;
 }
 
-let lastPrompt = '', lastConv = '';
+function buildImprovePrompt(report, direction, limit) {
+  return `당신은 대한민국 국세청의 공문서 작성 전문가입니다. 아래 [보고서](개조식)의 맥락과 구조를 파악한 뒤, [개선 방향]에 맞게 보고서를 개선해주세요.
 
-$('btnSample').addEventListener('click', () => { $('draft').value = SAMPLE; });
+[개선 방향]
+${direction || '(방향 미지정 — 전체적으로 다듬어주세요)'}
 
-// ---------- 파일/사진 업로드 → 텍스트 추출 (전부 브라우저 내 처리) ----------
+[작성 규칙]
+1. □/ㅇ/* 계층 구조와 명사형 종결 문체를 유지합니다.
+2. 각 ㅇ 항목은 ${limit}자 이내(2줄 분량)를 권장합니다.
+3. 수치·날짜·고유명사는 정확히 유지합니다.
+4. 원문의 핵심 내용이 빠지지 않도록 합니다.
+
+[보고서]
+${report}
+
+[출력 형식] 반드시 아래 형식을 지켜주세요.
+
+## 개선문
+(개선된 보고서 전체를 여기에 작성)
+
+## 변경점
+(바뀐 부분별로 번호 순서대로 기재)
+1. [위치: □/ㅇ 항목] 변경 내용 — 이유
+2. ...
+(변경점이 없으면 "변경점 없음"이라고 기재)`;
+}
+
+function buildPressPrompt(report) {
+  return `당신은 국세청 대변인실의 보도자료 작성 전문가입니다. 아래 [개조식 보고서]를 일반 국민이 읽는 보도자료 형식으로 바꿔주세요.
+
+[작성 규칙]
+1. 형식: 제목(핵심 메시지 한 줄), 핵심 3줄 요약(불릿 -), □ 리드문(누가·언제·무엇을), ㅇ 본문 항목 순서로 작성합니다.
+2. 전문 용어는 쉽게 풀어쓰고, 수치·날짜·고유명사는 정확히 유지합니다.
+3. 명사형 종결의 개조식 문체를 유지합니다.
+4. 보고서의 핵심 내용이 빠지지 않도록 합니다.
+
+[문체 예시]
+${PRESS_EX}
+
+[개조식 보고서]
+${report}
+
+[출력 형식] 반드시 아래 형식을 지켜주세요.
+
+## 보도자료
+(보도자료 전체를 여기에 작성)`;
+}
+
+function buildSpeechPrompt(report, meeting, speaker) {
+  return `당신은 대한민국 고위 공직자의 말씀자료(회의 모두발언) 작성 전문가입니다. 아래 [보고서]와 [회의 개요]를 바탕으로, [화자]가 회의에서 읽을 말씀자료를 작성해주세요.
+
+[작성 규칙]
+1. 구어체로 작성하되 격식을 유지합니다. ("~겠습니다", "~바랍니다")
+2. 분량: 3~5분 분량 (800~1200자 내외)
+3. 구성: 인사말 → 회의 취지·배경 → 안건별 핵심 언급 → 당부 말씀 → 마무리
+4. 보고서의 핵심 수치·과제는 정확히 인용합니다.
+5. 참석자를 고려한 톤으로 작성합니다.
+
+[화자]
+${speaker || '(미지정)'}
+
+[회의 개요]
+${meeting || '(미지정)'}
+
+[보고서]
+${report}
+
+[출력 형식] 반드시 아래 형식을 지켜주세요.
+
+## 말씀자료
+(말씀자료 전문)`;
+}
+
+// ---------- API 호출 ----------
+async function callClaude(prompt) {
+  const key = store.k;
+  if (!key) throw new Error('API 키가 없습니다.');
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: store.model,
+      max_tokens: 8000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  if (!res.ok) {
+    let msg = 'API 오류 ' + res.status;
+    try { const e = await res.json(); if (e?.error?.message) msg = e.error.message; } catch (_) {}
+    if (res.status === 401) msg = 'API 키가 유효하지 않습니다. 설정에서 확인하세요.';
+    if (res.status === 429) msg = '요청 한도 초과 — 잠시 후 다시 시도하세요.';
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  return (data.content || []).map(b => b.text || '').join('');
+}
+
+// ---------- 파싱 ----------
+function parseSections(text, names) {
+  const lines = text.split('\n');
+  const secs = {}; let cur = null;
+  const headRe = n => new RegExp('^#{0,3}\\s*' + n + '\\s*$');
+  for (const line of lines) {
+    const t = line.trim();
+    let hit = null;
+    for (const n of names) if (headRe(n).test(t)) { hit = n; break; }
+    if (hit) { cur = hit; secs[cur] = []; continue; }
+    if (cur) secs[cur].push(line);
+    else { cur = names[0]; secs[cur] = secs[cur] || []; secs[cur].push(line); }
+  }
+  const out = {};
+  for (const n of names) out[n] = (secs[n] || []).join('\n').trim();
+  return out;
+}
+
+function parseMapLines(mapText) {
+  const items = [];
+  for (const line of mapText.split('\n')) {
+    const m = line.match(/^\s*\d+[.)]\s*(.+)/);
+    if (!m) continue;
+    const body = m[1].trim();
+    if (/누락 없음|변경점 없음/.test(body)) continue;
+    const parts = body.split(/→|->|—/);
+    items.push({
+      summary: (parts[0] || body).trim(),
+      target: parts.slice(1).join('→').trim(),
+      miss: /누락/.test(body)
+    });
+  }
+  return items;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ---------- 결과 렌더 ----------
+function renderResult(cfg, raw) {
+  const secs = parseSections(raw, cfg.sections);
+  const main = secs[cfg.sections[0]];
+  $(cfg.out).textContent = main || '(결과를 찾지 못했습니다)';
+  $(cfg.out).style.display = main ? 'block' : 'none';
+  const mo = $(cfg.mapOut);
+  if (cfg.sections.length > 1) {
+    const items = parseMapLines(secs[cfg.sections[1]]);
+    const missCount = items.filter(i => i.miss).length;
+    $(cfg.miss).textContent = items.length ? `매핑 ${items.length}건 · 누락 ${missCount}건` : '';
+    const wb = $(cfg.warn);
+    if (missCount > 0) { wb.style.display = 'block'; wb.textContent = `⚠️ 원문 핵심 ${missCount}건이 반영되지 않았습니다.`; }
+    else wb.style.display = 'none';
+    if (!items.length) {
+      mo.innerHTML = '<div class="hint">매핑표를 찾지 못했습니다.</div>';
+    } else {
+      let h = '<table class="map"><tr><th style="width:36px">번호</th><th>원문 핵심</th><th style="width:70px">상태</th><th>반영 위치 / 변경 이유</th></tr>';
+      items.forEach((it, i) => {
+        h += `<tr class="${it.miss ? 'miss' : ''}"><td>${i + 1}</td><td>${escapeHtml(it.summary)}</td>`
+          + `<td><span class="badge ${it.miss ? 'miss' : 'ok'}">${it.miss ? '누락' : '반영'}</span></td>`
+          + `<td>${escapeHtml(it.target)}</td></tr>`;
+      });
+      mo.innerHTML = h + '</table>';
+    }
+  } else { mo.innerHTML = ''; $(cfg.miss).textContent = ''; $(cfg.warn).style.display = 'none'; }
+  $(cfg.actionRow).style.display = main ? 'flex' : 'none';
+  $(cfg.out).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return main;
+}
+
+// ---------- 모드 설정 ----------
+const MODES = {
+  gaejo: {
+    input: 'draft', promptBox: 'promptBox1', loading: 'loading1', err: 'err1',
+    out: 'convOut1', mapOut: 'mapOut1', miss: 'missSummary1', warn: 'warnBox1',
+    actionRow: 'actionRow1', sections: ['변환문', '매핑표'],
+    build() {
+      const d = $('draft').value.trim();
+      if (!d) throw new Error('초안을 먼저 입력하세요.');
+      return buildGaejoPrompt(d, store.limit);
+    }
+  },
+  improve: {
+    input: 'report', promptBox: 'promptBox2', loading: 'loading2', err: 'err2',
+    out: 'convOut2', mapOut: 'mapOut2', miss: 'missSummary1', warn: 'warnBox1',
+    actionRow: 'actionRow2', sections: ['개선문', '변경점'],
+    build() {
+      const d = $('report').value.trim();
+      if (!d) throw new Error('보고서를 먼저 입력하세요.');
+      return buildImprovePrompt(d, $('direction').value.trim(), store.limit);
+    }
+  },
+  press: {
+    input: 'reportPr', promptBox: 'promptBox3', loading: 'loading3', err: 'err3',
+    out: 'convOut3', mapOut: 'mapOut3', miss: 'missSummary1', warn: 'warnBox1',
+    actionRow: 'actionRow3', sections: ['보도자료'],
+    build() {
+      const d = $('reportPr').value.trim();
+      if (!d) throw new Error('보고서를 먼저 입력하세요.');
+      return buildPressPrompt(d);
+    }
+  },
+  speech: {
+    input: 'reportSp', promptBox: 'promptBox4', loading: 'loading4', err: 'err4',
+    out: 'convOut4', mapOut: 'mapOut4', miss: 'missSummary1', warn: 'warnBox1',
+    actionRow: 'actionRow4', sections: ['말씀자료'],
+    build() {
+      const d = $('reportSp').value.trim();
+      if (!d) throw new Error('보고서를 먼저 입력하세요.');
+      return buildSpeechPrompt(d, $('meeting').value.trim(), $('speaker').value.trim());
+    }
+  }
+};
+let lastMain = { gaejo: '', improve: '', press: '', speech: '' };
+
+function wireMode(key, runId, promptId, reviewId, pasteId) {
+  const cfg = MODES[key];
+  $(promptId).addEventListener('click', () => {
+    try {
+      const p = cfg.build();
+      const box = $(cfg.promptBox);
+      box.textContent = p; box.style.display = 'block'; box.dataset.prompt = p;
+      $(cfg.err).style.display = 'none';
+    } catch (e) { alert(e.message); }
+  });
+  $(runId).addEventListener('click', async () => {
+    const errBox = $(cfg.err), loading = $(cfg.loading);
+    errBox.style.display = 'none';
+    let p;
+    try { p = cfg.build(); } catch (e) { alert(e.message); return; }
+    loading.style.display = 'block';
+    $(runId).disabled = true;
+    try {
+      const raw = await callClaude(p);
+      lastMain[key] = renderResult(cfg, raw);
+    } catch (e) {
+      errBox.textContent = '실패: ' + e.message;
+      errBox.style.display = 'block';
+    } finally {
+      loading.style.display = 'none';
+      $(runId).disabled = !store.k;
+    }
+  });
+  $(reviewId).addEventListener('click', () => {
+    const t = $(pasteId).value.trim();
+    if (!t) { alert('Claude 출력을 먼저 붙여넣으세요.'); return; }
+    lastMain[key] = renderResult(cfg, t);
+  });
+}
+wireMode('gaejo', 'btnRun1', 'btnPrompt1', 'btnReview1', 'resultPaste1');
+wireMode('improve', 'btnRun2', 'btnPrompt2', 'btnReview2', 'resultPaste2');
+wireMode('press', 'btnRun3', 'btnPrompt3', 'btnReview3', 'resultPaste3');
+wireMode('speech', 'btnRun4', 'btnPrompt4', 'btnReview4', 'resultPaste4');
+
+// 프롬프트 복사 (공통 — dataset에서 읽음)
+['promptBox1', 'promptBox2', 'promptBox3', 'promptBox4'].forEach(id => {
+  const box = $(id);
+  const btn = document.querySelector(`button[id^="btnPrompt"][id$="${id.slice(-1)}"]`);
+  if (btn) btn.addEventListener('click', async () => {
+    const p = box.dataset.prompt;
+    if (!p) return;
+    try { await navigator.clipboard.writeText(p); alert('복사됐습니다. 클로드 앱에 붙여넣고 실행하세요.'); }
+    catch (e) { alert('복사 실패 — 직접 선택해서 복사하세요.'); }
+  });
+});
+
+// 결과 복사/다운로드
+[['btnCopyResult1', 'gaejo', '개조식-변환문.md'], ['btnCopyResult2', 'improve', '보고서-개선문.md'], ['btnCopyResult3', 'press', '보도자료.md'], ['btnCopyResult4', 'speech', '말씀자료.md']].forEach(([bid, key, fname]) => {
+  $(bid).addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(lastMain[key]); alert('복사됐습니다.'); }
+    catch (e) { alert('복사 실패'); }
+  });
+  const dlId = bid.replace('btnCopyResult', 'btnDownload');
+  $(dlId).addEventListener('click', () => {
+    const blob = new Blob([lastMain[key]], { type: 'text/markdown;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fname; a.click();
+    URL.revokeObjectURL(a.href);
+  });
+});
+
+// ---------- 파일/사진 업로드 ----------
 function loadScript(src) {
   return new Promise((res, rej) => {
     if (document.querySelector('script[data-src="' + src + '"]')) return res();
@@ -152,7 +651,6 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
-
 async function parseHwpx(file) {
   await loadScript('https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js');
   const zip = await JSZip.loadAsync(file);
@@ -174,7 +672,6 @@ async function parseHwpx(file) {
   if (!out.length) throw new Error('텍스트를 찾지 못했습니다.');
   return out.join('\n');
 }
-
 async function parsePdf(file) {
   const CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/';
   await loadScript(CDN + 'pdf.min.js');
@@ -187,10 +684,7 @@ async function parsePdf(file) {
     const page = await pdf.getPage(p);
     const tc = await page.getTextContent();
     let line = '';
-    for (const item of tc.items) {
-      line += item.str;
-      if (item.hasEOL) { out.push(line); line = ''; }
-    }
+    for (const item of tc.items) { line += item.str; if (item.hasEOL) { out.push(line); line = ''; } }
     if (line.trim()) out.push(line);
     out.push('');
   }
@@ -198,122 +692,35 @@ async function parsePdf(file) {
   if (!text.trim()) throw new Error('텍스트를 추출하지 못했습니다. 스캔 PDF는 사진으로 올려주세요.');
   return text;
 }
-
-async function ocrImage(file) {
+async function ocrImage(file, statusEl) {
   await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js');
   const url = URL.createObjectURL(file);
   try {
-    $('fileStatus').textContent = '글자 인식 중... (첫 실행 시 인식 데이터 다운로드)';
+    statusEl.textContent = '글자 인식 중... (첫 실행 시 인식 데이터 다운로드)';
     const { data: { text } } = await Tesseract.recognize(url, 'kor');
     if (!text.trim()) throw new Error('글자를 인식하지 못했습니다.');
     return text;
   } finally { URL.revokeObjectURL(url); }
 }
-
-$('fileInput').addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  e.target.value = '';
-  if (!file) return;
-  const name = file.name.toLowerCase();
-  const status = $('fileStatus');
-  status.textContent = '읽는 중...';
-  try {
-    let text = '';
-    if (name.endsWith('.hwpx')) text = await parseHwpx(file);
-    else if (name.endsWith('.pdf')) text = await parsePdf(file);
-    else if (/\.(jpe?g|png|webp|bmp)$/.test(name)) text = await ocrImage(file);
-    else throw new Error('지원하지 않는 형식입니다. (hwpx · pdf · jpg · png)');
-    text = text.replace(/\n{3,}/g, '\n\n').trim();
-    $('draft').value = text;
-    status.textContent = `추출 완료 (${text.length}자) — 확인 후 프롬프트를 생성하세요.`;
-  } catch (err) {
-    status.textContent = '실패: ' + err.message;
-  }
-});
-$('btnPrompt').addEventListener('click', () => {
-  const d = $('draft').value.trim();
-  if (!d) { alert('초안을 먼저 입력하세요.'); return; }
-  lastPrompt = buildPrompt(d, store.limit);
-  const box = $('promptBox');
-  box.textContent = lastPrompt;
-  box.style.display = 'block';
-  $('btnCopyPrompt').disabled = false;
-});
-$('btnCopyPrompt').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText(lastPrompt); alert('복사됐습니다. 클로드 앱에 붙여넣고 실행하세요.'); }
-  catch (e) { alert('복사 실패 — 프롬프트를 직접 선택해서 복사하세요.'); }
-});
-
-function parseResult(text) {
-  const lines = text.split('\n');
-  let mode = 'conv', conv = [], map = [];
-  for (const line of lines) {
-    const t = line.trim();
-    if (/^#{0,3}\s*변환문/.test(t)) { mode = 'conv'; continue; }
-    if (/^#{0,3}\s*(매핑표|대조)/.test(t)) { mode = 'map'; continue; }
-    (mode === 'conv' ? conv : map).push(line);
-  }
-  const items = [];
-  for (const line of map) {
-    const m = line.match(/^\s*\d+[.)]\s*(.+)/);
-    if (!m) continue;
-    const body = m[1].trim();
-    if (/누락 없음/.test(body)) continue;
-    const isMiss = /누락/.test(body);
-    const parts = body.split(/→|->/);
-    items.push({
-      summary: (parts[0] || body).trim(),
-      target: (parts[1] || '').trim(),
-      miss: isMiss
-    });
-  }
-  return { conv: conv.join('\n').trim(), items };
-}
-
-$('btnReview').addEventListener('click', () => {
-  const t = $('result').value.trim();
-  if (!t) { alert('Claude 결과를 먼저 붙여넣으세요.'); return; }
-  const { conv, items } = parseResult(t);
-  lastConv = conv;
-  $('convOut').textContent = conv || '(변환문을 찾지 못했습니다)';
-  const missCount = items.filter(i => i.miss).length;
-  $('missSummary').textContent = items.length ? `매핑 ${items.length}건 · 누락 ${missCount}건` : '';
-  const wb = $('warnBox');
-  if (missCount > 0) {
-    wb.style.display = 'block';
-    wb.textContent = `⚠️ 원문 핵심 ${missCount}건이 변환문에 반영되지 않았습니다. 아래 매핑표를 확인하세요.`;
-  } else { wb.style.display = 'none'; }
-  const mo = $('mapOut');
-  if (!items.length) {
-    mo.innerHTML = '<div class="hint">매핑표를 찾지 못했습니다. 프롬프트의 출력 형식(## 변환문 / ## 매핑표)을 지켜달라고 Claude에 요청하세요.</div>';
-  } else {
-    let h = '<table class="map"><tr><th style="width:36px">번호</th><th>원문 핵심</th><th style="width:70px">상태</th><th>반영 위치</th></tr>';
-    items.forEach((it, i) => {
-      h += `<tr class="${it.miss ? 'miss' : ''}"><td>${i + 1}</td><td>${escapeHtml(it.summary)}</td>`
-        + `<td><span class="badge ${it.miss ? 'miss' : 'ok'}">${it.miss ? '누락' : '반영'}</span></td>`
-        + `<td>${escapeHtml(it.target)}</td></tr>`;
-    });
-    mo.innerHTML = h + '</table>';
-  }
-  $('reviewStep').style.display = 'block';
-  $('reviewStep').scrollIntoView({ behavior: 'smooth' });
-});
-
-function escapeHtml(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-$('btnCopyResult').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText(lastConv); alert('복사됐습니다.'); }
-  catch (e) { alert('복사 실패'); }
-});
-$('btnDownload').addEventListener('click', () => {
-  const blob = new Blob([lastConv], { type: 'text/markdown;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = '개조식-변환문.md';
-  a.click();
-  URL.revokeObjectURL(a.href);
+[['fileInput1', 'draft', 'fileStatus1'], ['fileInput2', 'report', 'fileStatus2'], ['fileInput3', 'reportPr', 'fileStatus3'], ['fileInput4', 'reportSp', 'fileStatus4']].forEach(([fid, tid, sid]) => {
+  $(fid).addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    const name = file.name.toLowerCase();
+    const status = $(sid);
+    status.textContent = '읽는 중...';
+    try {
+      let text = '';
+      if (name.endsWith('.hwpx')) text = await parseHwpx(file);
+      else if (name.endsWith('.pdf')) text = await parsePdf(file);
+      else if (/\.(jpe?g|png|webp|bmp)$/.test(name)) text = await ocrImage(file, status);
+      else throw new Error('지원하지 않는 형식입니다. (hwpx · pdf · jpg · png)');
+      text = text.replace(/\n{3,}/g, '\n\n').trim();
+      $(tid).value = text;
+      status.textContent = `추출 완료 (${text.length}자) — 확인 후 실행하세요.`;
+    } catch (err) { status.textContent = '실패: ' + err.message; }
+  });
 });
 </script>
 </body>
