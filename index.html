@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개조식 메이커</title>
+<style>
+  :root { --ink:#1a1a1a; --mut:#666; --line:#e2e2e2; --acc:#0b5fff; --bg:#fafafa; --warn:#c00; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { max-width:860px; margin:0 auto; padding:20px 16px 80px; }
+  h1 { font-size:22px; margin:8px 0 4px; }
+  .sub { color:var(--mut); font-size:13px; margin-bottom:20px; }
+  .step { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:14px; }
+  .step h2 { font-size:15px; margin:0 0 10px; }
+  .step h2 .n { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center; background:var(--ink); color:#fff; border-radius:50%; font-size:12px; margin-right:6px; }
+  textarea { width:100%; min-height:140px; border:1px solid var(--line); border-radius:8px; padding:10px; font-size:14px; line-height:1.6; resize:vertical; font-family:inherit; }
+  textarea.mono { font-family:ui-monospace,Menlo,monospace; font-size:12.5px; }
+  .row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+  button { border:0; border-radius:8px; padding:10px 16px; font-size:14px; cursor:pointer; }
+  .btn-p { background:var(--acc); color:#fff; }
+  .btn-s { background:#eee; color:var(--ink); }
+  button:disabled { opacity:.45; cursor:default; }
+  .hint { font-size:12.5px; color:var(--mut); margin-top:8px; line-height:1.6; }
+  .promptbox { background:#f4f6fb; border:1px dashed var(--acc); border-radius:8px; padding:12px; font-size:12.5px; white-space:pre-wrap; max-height:320px; overflow:auto; margin-top:10px; display:none; }
+  .out { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; white-space:pre-wrap; font-size:14px; line-height:1.8; }
+  table.map { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+  table.map th, table.map td { border:1px solid var(--line); padding:8px; text-align:left; vertical-align:top; }
+  table.map th { background:#f4f4f4; }
+  tr.miss td { background:#fff0f0; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:12px; }
+  .badge.ok { background:#e6f4ea; color:#137333; }
+  .badge.miss { background:#fdecea; color:var(--warn); }
+  .warnbox { border:1px solid var(--warn); background:#fff5f5; border-radius:8px; padding:10px 12px; font-size:13px; margin-top:10px; display:none; }
+  .setrow { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--mut); }
+  input[type=number] { width:70px; padding:6px; border:1px solid var(--line); border-radius:6px; }
+  .done-label { font-size:12px; color:var(--mut); margin-left:6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📝 개조식 메이커</h1>
+  <div class="sub">초안을 개조식(□/○·명사형 종결)으로 다듬기 — 구독 중인 Claude와 함께 씁니다</div>
+
+  <div class="step">
+    <h2><span class="n">1</span>초안 입력</h2>
+    <textarea id="draft" placeholder="다듬을 초안을 붙여넣으세요"></textarea>
+    <div class="row">
+      <button class="btn-s" id="btnSample">예시 초안 넣어보기</button>
+      <span class="setrow">2줄 기준 <input type="number" id="charLimit" value="80" min="40" max="200"> 자</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <h2><span class="n">2</span>프롬프트 만들기</h2>
+    <div class="row">
+      <button class="btn-p" id="btnPrompt">프롬프트 생성</button>
+      <button class="btn-s" id="btnCopyPrompt" disabled>프롬프트 복사</button>
+    </div>
+    <div class="hint">생성된 프롬프트를 복사해서 클로드 앱(또는 코워크·채팅)에 붙여넣고 실행하세요. 구독 사용량으로 처리됩니다.</div>
+    <div class="promptbox" id="promptBox"></div>
+  </div>
+
+  <div class="step">
+    <h2><span class="n">3</span>Claude 결과 붙여넣기</h2>
+    <textarea id="result" class="mono" placeholder="Claude의 출력(## 변환문 + ## 매핑표)을 그대로 붙여넣으세요"></textarea>
+    <div class="row">
+      <button class="btn-p" id="btnReview">검수 보기</button>
+    </div>
+  </div>
+
+  <div class="step" id="reviewStep" style="display:none">
+    <h2><span class="n">4</span>변환문 <span class="done-label" id="missSummary"></span></h2>
+    <div class="warnbox" id="warnBox"></div>
+    <div class="out" id="convOut"></div>
+    <h2 style="margin-top:18px"><span class="n">5</span>대조 검수 (원문 → 반영 여부)</h2>
+    <div id="mapOut"></div>
+    <div class="row">
+      <button class="btn-s" id="btnCopyResult">변환문 복사</button>
+      <button class="btn-s" id="btnDownload">.md 다운로드</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const store = {
+  get limit() { return parseInt(localStorage.getItem('gj_limit') || '80', 10); },
+  set limit(v) { localStorage.setItem('gj_limit', String(v)); }
+};
+$('charLimit').value = store.limit;
+$('charLimit').addEventListener('change', e => { store.limit = e.target.value; });
+
+const EX1 = `① [세정혁신] 국세 체납관리단 출범 및 세무조사 패러다임 대전환
+ㅇ (체납관리 혁신) 올 3월 출범한 ｢국세 체납관리단(500명)｣은 6.5만명에 대한 실태확인 실시(3.5.∼6.30.), 총 274억원을 징수해 투입예산(70억) 대비 388% 실적
+ㅇ (세무조사 혁신) 현장조사 최소화, 시기선택제, 중점점검항목 사전공개 등 낡은 세무조사 관행을 근본적으로 혁신해 기업하기 좋은 세정환경 조성`;
+
+const EX2 = `① 세입예산 조달 및 납세서비스 개선
+ㅇ 글로벌 복합위기, 국내경기 둔화 등 어려운 대내외 여건 속에서 신고지원･세원관리로 세입예산 확보에 최선의 노력 경주`;
+
+const SAMPLE = `2026년 하반기에는 국세외수입 체납액의 징수와 관리를 국세청으로 통합하는 것을 본격적으로 추진하려고 합니다. 현재는 300개가 넘는 법률에 근거해서 64개 부처가 각자 부과하고 징수하고 있어서 비효율적입니다. 2027년부터 본격 시행하는 것을 목표로 하고 있으며, 올해 안에 관련 법률이 국회를 통과할 수 있도록 입법 절차를 지원할 예정입니다. 각 부처에 흩어져 있는 체납 정보를 모아서 체납자별 데이터베이스를 구축하고, 국세행정 시스템과 실시간으로 연계되는 통합관리시스템도 만들 계획입니다.`;
+
+function buildPrompt(draft, limit) {
+  return `당신은 대한민국 국세청의 공문서 작성 전문가입니다. 아래 [초안]을 개조식 공문서 문체로 다듬어주세요.
+
+[작성 규칙]
+1. □는 대제목(핵심 메시지), ㅇ은 세부 항목, *는 각주·근거에 사용합니다.
+2. 모든 항목은 명사형으로 종결합니다. (예: "~함", "~추진", "~강화", "~마련")
+3. 각 ㅇ 항목은 ${limit}자 이내(2줄 분량)로 압축하되, 주요 내용이 빠지지 않도록 합니다.
+4. 원문의 핵심 내용이 하나도 빠지지 않도록 합니다.
+5. 수치·날짜·고유명사는 정확히 유지합니다.
+
+[문체 예시 1]
+${EX1}
+
+[문체 예시 2]
+${EX2}
+
+[초안]
+${draft}
+
+[출력 형식] 반드시 아래 형식을 지켜주세요.
+
+## 변환문
+(개조식으로 다듬은 결과 전체를 여기에 작성)
+
+## 매핑표
+(원문의 핵심 내용별로 변환문에 반영됐는지를 번호 순서대로 기재)
+1. [원문 핵심 내용 한 줄 요약] → 반영 (□ ... / ㅇ ...)
+2. [원문 핵심 내용 한 줄 요약] → 누락
+(누락된 핵심이 없으면 마지막 줄에 "누락 없음"이라고 기재)`;
+}
+
+let lastPrompt = '', lastConv = '';
+
+$('btnSample').addEventListener('click', () => { $('draft').value = SAMPLE; });
+$('btnPrompt').addEventListener('click', () => {
+  const d = $('draft').value.trim();
+  if (!d) { alert('초안을 먼저 입력하세요.'); return; }
+  lastPrompt = buildPrompt(d, store.limit);
+  const box = $('promptBox');
+  box.textContent = lastPrompt;
+  box.style.display = 'block';
+  $('btnCopyPrompt').disabled = false;
+});
+$('btnCopyPrompt').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(lastPrompt); alert('복사됐습니다. 클로드 앱에 붙여넣고 실행하세요.'); }
+  catch (e) { alert('복사 실패 — 프롬프트를 직접 선택해서 복사하세요.'); }
+});
+
+function parseResult(text) {
+  const lines = text.split('\n');
+  let mode = 'conv', conv = [], map = [];
+  for (const line of lines) {
+    const t = line.trim();
+    if (/^#{0,3}\s*변환문/.test(t)) { mode = 'conv'; continue; }
+    if (/^#{0,3}\s*(매핑표|대조)/.test(t)) { mode = 'map'; continue; }
+    (mode === 'conv' ? conv : map).push(line);
+  }
+  const items = [];
+  for (const line of map) {
+    const m = line.match(/^\s*\d+[.)]\s*(.+)/);
+    if (!m) continue;
+    const body = m[1].trim();
+    if (/누락 없음/.test(body)) continue;
+    const isMiss = /누락/.test(body);
+    const parts = body.split(/→|->/);
+    items.push({
+      summary: (parts[0] || body).trim(),
+      target: (parts[1] || '').trim(),
+      miss: isMiss
+    });
+  }
+  return { conv: conv.join('\n').trim(), items };
+}
+
+$('btnReview').addEventListener('click', () => {
+  const t = $('result').value.trim();
+  if (!t) { alert('Claude 결과를 먼저 붙여넣으세요.'); return; }
+  const { conv, items } = parseResult(t);
+  lastConv = conv;
+  $('convOut').textContent = conv || '(변환문을 찾지 못했습니다)';
+  const missCount = items.filter(i => i.miss).length;
+  $('missSummary').textContent = items.length ? `매핑 ${items.length}건 · 누락 ${missCount}건` : '';
+  const wb = $('warnBox');
+  if (missCount > 0) {
+    wb.style.display = 'block';
+    wb.textContent = `⚠️ 원문 핵심 ${missCount}건이 변환문에 반영되지 않았습니다. 아래 매핑표를 확인하세요.`;
+  } else { wb.style.display = 'none'; }
+  const mo = $('mapOut');
+  if (!items.length) {
+    mo.innerHTML = '<div class="hint">매핑표를 찾지 못했습니다. 프롬프트의 출력 형식(## 변환문 / ## 매핑표)을 지켜달라고 Claude에 요청하세요.</div>';
+  } else {
+    let h = '<table class="map"><tr><th style="width:36px">번호</th><th>원문 핵심</th><th style="width:70px">상태</th><th>반영 위치</th></tr>';
+    items.forEach((it, i) => {
+      h += `<tr class="${it.miss ? 'miss' : ''}"><td>${i + 1}</td><td>${escapeHtml(it.summary)}</td>`
+        + `<td><span class="badge ${it.miss ? 'miss' : 'ok'}">${it.miss ? '누락' : '반영'}</span></td>`
+        + `<td>${escapeHtml(it.target)}</td></tr>`;
+    });
+    mo.innerHTML = h + '</table>';
+  }
+  $('reviewStep').style.display = 'block';
+  $('reviewStep').scrollIntoView({ behavior: 'smooth' });
+});
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+$('btnCopyResult').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(lastConv); alert('복사됐습니다.'); }
+  catch (e) { alert('복사 실패'); }
+});
+$('btnDownload').addEventListener('click', () => {
+  const blob = new Blob([lastConv], { type: 'text/markdown;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '개조식-변환문.md';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+</script>
+</body>
+</html>
