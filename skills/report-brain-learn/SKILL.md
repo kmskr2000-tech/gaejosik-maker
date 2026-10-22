@@ -40,7 +40,7 @@ description: 「보고서 브레인」 학습 스킬. 사용자의 국세청 기
 
 ### 1-2. 읽기
 - HWP·HWPX: Drive `download_file_content`로 받아 kordoc으로 Markdown 변환(`references/kordoc.md`). 받은 파일은 작업 폴더의 빈 하위 폴더에 두고, 끝나면 지운다.
-- PDF·docx·Google 문서: `read_file_content`.
+- PDF·docx·Google 문서: `read_file_content`. 단, 큰 PDF는 `read_file_content` 결과가 중간에서 잘릴 수 있다(186쪽 통합본이 일부 국실까지만 나온 사례). 마지막 장·목차와 대조해 잘렸으면 `download_file_content`로 받아 kordoc(`npx -y kordoc 파일.pdf -o 파일.md`)으로 전체를 변환해 읽는다.
 - 다운로드 한도는 10MB다. 5MB가 넘는 파일은 다운로드 응답이 커서 커넥터 연결이 끊길 수 있다. 5MB 넘는 HWP는 사용자에게 PDF로 저장해 올려 달라고 한다.
 - 반대로 아주 작은 HWP(대략 50KB 미만)는 응답이 파일로 저장되지 않고 대화에 base64로 바로 들어온다. 이걸 손으로 옮겨 디코드하지 않는다(전사 오류). 이런 파일도 PDF로 올려 달라고 한다.
 - 정리하면 HWP는 50KB~5MB 구간만 안정적으로 읽힌다. 그 밖은 PDF가 안전하다.
