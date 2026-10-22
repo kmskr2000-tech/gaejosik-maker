@@ -12,6 +12,7 @@ description: 「보고서 브레인」 학습 스킬. 사용자의 국세청 기
 | 항목 | Drive ID |
 |---|---|
 | 브레인 루트 `NTS_보고서_브레인` | 1YooagVBGn9ZO1NlanaAo3VszQXBaiFbG |
+| 색인 `_index` (루트 안) | 1qa-5VBhZajR3KeLB3BPYatV0VANs7AcCLsdRa8F_B-8 |
 | docs | 1h7s0VoI1-TsQr5kimazpUMsRK2L4XT6A |
 | lenses | 1K4RBGnikBRXBaHdg6_GAfGbEESdQ10MM |
 | context | 1yncHuF3UUxiT2ZoKgg2-rSTWd4YyguHy |
@@ -20,7 +21,7 @@ description: 「보고서 브레인」 학습 스킬. 사용자의 국세청 기
 | synthesis/absorb | 1XUA8ssxsiRGOaYn9F9AKU13GWILxK8Lc |
 | 코퍼스 루트 `NTS_보고서_코퍼스` | 10Mpf4D6IzxL6q8UtYtaWOD5PUa3jzIQE |
 
-브레인 문서는 모두 Google 문서다. 어떤 문서가 어디 있는지는 루트의 `_index` 문서가 정한다. 문서를 새로 만들거나 버전을 올리면 `_index`도 반드시 고친다. `_index`가 틀리면 작성 스킬이 브레인을 못 읽는다.
+브레인 문서는 모두 Google 문서다. Markdown으로 올리면 frontmatter가 한 줄 제목처럼 변환되므로, 버전·ID 같은 기계용 값은 `_index` 본문에도 반드시 적는다. 현재 버전은 `_index`의 "현재 버전" 절이 기준이다. 어떤 문서가 어디 있는지는 루트의 `_index` 문서가 정한다. 문서를 새로 만들거나 버전을 올리면 `_index`도 반드시 고친다. `_index`가 틀리면 작성 스킬이 브레인을 못 읽는다.
 
 ## 작업 종류
 

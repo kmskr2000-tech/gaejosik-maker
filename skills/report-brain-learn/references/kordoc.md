@@ -6,12 +6,12 @@
 
 | 단계 | 작업 | kordoc 기능 |
 |---|---|---|
-| 1·3단계 | 국실 1차 자료(HWP·HWPX·PDF·XLSX) 읽기 | `parse_document` |
-| 3·4단계 | Drive 코퍼스 HWP 읽기 | Drive에서 내려받은 뒤 `parse_document` |
-| 3단계 | 1차 자료 개인정보 가리기 | `redact_document` |
-| 5단계 | 표기법·문체·구성·수치 검수 | `lint_document` (CLI `lint --gate --numbers`) |
-| 6단계 | Markdown 원고를 HWPX로 | `generate_document` (CLI `generate`) |
-| 6단계 | 서식 견본 그대로 새 내용 | `generate --template` 또는 `patch` |
+| 4단계 | 국실 1차 자료(HWP·HWPX·PDF·XLSX) 읽기 | `parse_document` |
+| 4단계·학습 | Drive 코퍼스 HWP 읽기 | Drive에서 내려받은 뒤 `parse_document` |
+| 4단계 | 1차 자료 개인정보 가리기 | `redact_document` |
+| 6단계 | 표기법·문체·구성·수치 검수 | `lint_document` (CLI `lint --preset 보고서`) |
+| 7단계 | Markdown 원고를 HWPX로 | `generate_document` (CLI `generate`) |
+| 7단계 | 서식 견본 그대로 새 내용 | `generate --template` 또는 `patch` |
 
 ## 실행 방법 선택
 
@@ -55,6 +55,7 @@ kordoc은 Markdown 위계를 공문서 부호로 바꾼다. 원고는 이 규칙
 | 정부업무평가 대응 | `보고서` | `--agency 국세청` |
 | 범부처 과제 발굴 | `보고서` | `--agency 국세청`. 공문 양식이 HWPX로 왔으면 `fill_form` 또는 `patch` |
 | 수시 기획보고 | `보고서` | `--agency 국세청 --report-info '(날짜, 혁신정책담당관실)'` |
+| 원페이퍼·청장 보고 | `보고서` | `--agency 국세청 --no-cover --no-toc --report-info '【’26. 10. 혁신정책담당관실】'`. 【】 머리 줄은 본문에 쓰지 않고 `--report-info`로 넣는다. 요약 상자(>)는 넣지 않는다. 원페이퍼 공식에 목적 줄이 없다 |
 
 ```bash
 npx -y kordoc generate 원고.md -o 결과.hwpx --preset 업무보고 --agency 국세청
@@ -93,16 +94,23 @@ docx·pdf·Google 문서는 Drive 커넥터의 `read_file_content`로 바로 읽
 
 ## 검수
 
-6단계에서 HWPX를 만들기 전에 원고 Markdown을 검수한다.
+7단계에서 HWPX를 만들기 전에 원고 Markdown을 검수한다.
 
 ```bash
-npx -y kordoc lint 원고.md --gate --preset 보고서
+npx -y kordoc lint 원고.md --preset 보고서
 ```
 
 - 표기법·문체 error, 윤문(AI 문체), 구성(왜 → 무엇 → 어떻게) 지적이 나온다. 지적을 고친 뒤 다시 돌린다.
-- 지적이 코퍼스 문체와 충돌하면 코퍼스를 따르고, 그 지적은 출력 끝 "판단 필요 지점"에 적는다. kordoc 규칙은 일반 공문서 기준이고, 국세청 내부 관행이 우선이다.
-- HWPX를 만든 뒤 `lint 결과.hwpx --numbers`로 본문과 표의 수치가 맞는지 한 번 더 본다.
-- 생성할 때 `--gate`를 주면 게이트를 통과하지 못한 원고는 파일이 만들어지지 않는다. 마감이 급한 수시 보고에서는 빼고, 지적 목록만 사용자에게 보여 준다.
+- kordoc 규칙은 일반 공문서(행정업무운영 편람) 기준이고, 브레인의 코퍼스 관행이 우선이다. 아래는 코퍼스가 일부러 다르게 쓰는 것이라 고치지 않는다(알려진 예외).
+
+| kordoc 지적 | 코퍼스 관행 | 처리 |
+|---|---|---|
+| `DATE_2DIGIT_YR` (’26 두 자리 연도) | 【’26. 10. 부서】, ’26.下, ’26.6월 | 유지 |
+| 요약 상자 없음 경고 | 원페이퍼·청장 보고는 목적 줄 없음 | 유지 |
+
+- 알려진 예외만 남으면 `--gate` 없이 생성한다. 예외 밖의 지적이 남아 있으면 고친다. 고치지 않기로 한 지적은 출력 끝 "판단 필요"에 적는다.
+- 예외 표에 없는 새 충돌을 발견하면 "판단 필요"에 적고, 같은 충돌이 반복되면 학습 스킬로 브레인 `conflict-rules`에 올린다.
+- HWPX를 만든 뒤 `lint 결과.hwpx --numbers`로 본문과 표의 수치가 맞는지 보고, `validate 결과.hwpx`로 구조를 확인한다.
 
 ## 개인정보 가리기
 

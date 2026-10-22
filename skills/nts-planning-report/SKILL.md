@@ -16,9 +16,9 @@ Google Drive `NTS_보고서_브레인` 폴더. Google Drive 커넥터로 읽는�
 | 항목 | ID |
 |---|---|
 | 브레인 루트 폴더 | 1YooagVBGn9ZO1NlanaAo3VszQXBaiFbG |
-| 색인 문서 `_index` | 루트 폴더 안. 모든 브레인 문서의 파일 ID 목록 |
+| 색인 문서 `_index` | 1qa-5VBhZajR3KeLB3BPYatV0VANs7AcCLsdRa8F_B-8 (모든 브레인 문서의 파일 ID 목록) |
 
-- 항상 `_index`를 먼저 읽어 파일 ID를 확정하고 개별 문서를 읽는다. 폴더 목록을 뒤지지 않는다.
+- 항상 `_index`(ID 위 표)를 먼저 읽어 파일 ID를 확정하고 개별 문서를 읽는다. 폴더 목록을 뒤지지 않는다.
 - 루트 ID로 못 찾으면 제목으로 찾는다: `mimeType = 'application/vnd.google-apps.folder' and title = 'NTS_보고서_브레인'`, 그 안에서 `title = '_index'`.
 - 브레인 원문 코퍼스(과거 보고서 원본)는 `NTS_보고서_코퍼스` 폴더에 따로 있다. 노트로 부족할 때만 원문을 연다. 방법은 `references/corpus-drive.md`.
 
@@ -27,8 +27,8 @@ Google Drive `NTS_보고서_브레인` 폴더. Google Drive 커넥터로 읽는�
 ### 0. 브레인 읽기 (필수)
 
 1. `_index`를 읽는다.
-2. `synthesis/보고서브레인`의 frontmatter `version` 값 X를 확인한다.
-3. `synthesis/versions/vX` 스냅샷을 읽는다. 이것이 이번 작업의 판단 스펙이다(판단 프로세스, 유형별 뼈대, 문체 규칙, 하지 않는 것).
+2. `_index`의 "현재 버전" 절에서 버전 X와 스냅샷 ID를 확인한다. 브레인 문서는 Google 문서로 변환돼 있어 frontmatter가 한 줄 제목처럼 보일 수 있다. 버전은 `_index`를 기준으로 한다.
+3. `versions/vX` 스냅샷을 읽는다. 이것이 이번 작업의 판단 스펙이다(판단 프로세스, 유형별 뼈대, 문체 규칙, 하지 않는 것).
 4. 가변 문서(`보고서브레인`)에만 있고 스냅샷에 없는 변경은 적용하지 않는다. 흡수 중인 상태로 본다.
 5. `synthesis/conflict-rules`를 읽는다.
 6. 브레인 문서를 하나도 못 읽으면 쓰지 않는다. 경로 오류를 보고하고 멈춘다. 브레인 없이 추측으로 문체를 재구성하는 것을 금지한다. 사용자가 "브레인 없이 그냥 써"라고 하면 그때만 일반 정부 보고서 양식으로 쓰고, 결과 머리에 "브레인 미적용"이라고 적는다.
@@ -72,7 +72,7 @@ Google Drive `NTS_보고서_브레인` 폴더. Google Drive 커넥터로 읽는�
 
 ### 6. 교정
 
-1. kordoc `lint --gate`로 기계 검수(`references/kordoc.md`).
+1. kordoc `lint`로 기계 검수(`references/kordoc.md`). 코퍼스 관행과 부딪히는 알려진 예외는 고치지 않는다.
 2. 스냅샷의 점검 목록으로 사람 기준 검수. 상위 메시지 정합, 국실 간 중복·모순, 과장 표현은 반드시 본다.
 
 ### 7. 출력
