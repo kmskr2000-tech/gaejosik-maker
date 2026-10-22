@@ -16,9 +16,9 @@ Google Drive `NTS_보고서_브레인` 폴더. Google Drive 커넥터로 읽는�
 | 항목 | ID |
 |---|---|
 | 브레인 루트 폴더 | 1YooagVBGn9ZO1NlanaAo3VszQXBaiFbG |
-| 색인 문서 `_index` | 1qa-5VBhZajR3KeLB3BPYatV0VANs7AcCLsdRa8F_B-8 (모든 브레인 문서의 파일 ID 목록) |
+| 색인 문서 `_index` | 루트 폴더 안, 제목 `_index`. 모든 브레인 문서의 파일 ID 목록. 학습 때마다 새 문서로 교체되므로 ID를 고정해 쓰지 않는다 |
 
-- 항상 `_index`(ID 위 표)를 먼저 읽어 파일 ID를 확정하고 개별 문서를 읽는다. 폴더 목록을 뒤지지 않는다.
+- 항상 `_index`를 먼저 읽어 파일 ID를 확정하고 개별 문서를 읽는다. 찾는 법: `search_files`로 `parentId = '1YooagVBGn9ZO1NlanaAo3VszQXBaiFbG' and title = '_index'`. 여러 개면 가장 최근 수정본을 쓴다.
 - 루트 ID로 못 찾으면 제목으로 찾는다: `mimeType = 'application/vnd.google-apps.folder' and title = 'NTS_보고서_브레인'`, 그 안에서 `title = '_index'`.
 - 브레인 원문 코퍼스(과거 보고서 원본)는 `NTS_보고서_코퍼스` 폴더에 따로 있다. 노트로 부족할 때만 원문을 연다. 방법은 `references/corpus-drive.md`.
 

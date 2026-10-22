@@ -12,7 +12,7 @@ description: 「보고서 브레인」 학습 스킬. 사용자의 국세청 기
 | 항목 | Drive ID |
 |---|---|
 | 브레인 루트 `NTS_보고서_브레인` | 1YooagVBGn9ZO1NlanaAo3VszQXBaiFbG |
-| 색인 `_index` (루트 안) | 1qa-5VBhZajR3KeLB3BPYatV0VANs7AcCLsdRa8F_B-8 |
+| 색인 `_index` (루트 안) | 교체될 때마다 ID가 바뀐다. `parentId = '<루트>' and title = '_index'`로 찾는다 |
 | docs | 1h7s0VoI1-TsQr5kimazpUMsRK2L4XT6A |
 | lenses | 1K4RBGnikBRXBaHdg6_GAfGbEESdQ10MM |
 | context | 1yncHuF3UUxiT2ZoKgg2-rSTWd4YyguHy |
@@ -144,7 +144,7 @@ version_after: vY (변경 없으면 vX)
 ## Drive에 쓰는 방법
 
 - 새 문서: `create_file`에 `title`, `parentId`, `textContent`(Markdown), `contentMimeType: "text/markdown"`. Google 문서로 변환된다. 변환이 실패하면 `text/plain`으로 다시.
-- 기존 문서 내용 수정: 커넥터에 내용 수정 기능이 없다. 새 내용으로 같은 제목 문서를 만들고, 옛 문서는 `trash_file`로 휴지통에 넣고, `_index`의 ID를 새 것으로 바꾼다. `versions/` 스냅샷은 절대 이렇게 바꾸지 않는다.
+- 기존 문서 내용 수정: 커넥터에 내용 수정 기능이 없다. 새 내용으로 같은 제목 문서를 만들고, 옛 문서는 `trash_file`로 휴지통에 넣고, `_index`의 ID를 새 것으로 바꾼다. `_index` 자신도 같은 방식으로 교체한다. 새 `_index`를 먼저 만들고 확인한 뒤 옛 `_index`를 휴지통에 넣는다. 같은 제목의 `_index`가 둘 남아 있으면 안 된다. `versions/` 스냅샷은 절대 이렇게 바꾸지 않는다.
 - 문서 하나에 넣는 내용이 너무 크면 커넥터 연결이 끊길 수 있다. 문서 하나는 2만 자 안쪽으로 유지한다.
 
 ## 끝나면 보고
