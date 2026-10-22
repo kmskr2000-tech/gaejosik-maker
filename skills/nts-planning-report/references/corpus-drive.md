@@ -7,6 +7,7 @@
 | 폴더 | 유형 | 폴더 ID |
 |---|---|---|
 | NTS_보고서_코퍼스 | 루트 | 10Mpf4D6IzxL6q8UtYtaWOD5PUa3jzIQE |
+| 00_서식견본 | 결재 양식 HWPX | 1OsPhAbbrudXq-B2EYITszGrTyJzZdjb4 |
 | 01_업무보고 | 대통령 업무보고 | 1EV5i3pQ34Iw75rBrKN2a6KHhnM_MQqep |
 | 02_과제발굴 | 범부처 추진과제 대응 | 1Cyqh0WnE-QMT9c4WH--bRT_fUaVeg7s0 |
 | 03_업무평가 | 정부업무평가 대응 | 1vOUMKilwvuK98DkEy4Hch8qVIaD31Tb4 |
@@ -37,9 +38,16 @@ mimeType = 'application/vnd.google-apps.folder' and title = 'NTS_보고서_코�
 
 ## 파일 형식
 
-커넥터가 읽을 수 있는 형식: Google 문서, docx, pdf, xlsx, pptx, 이미지. 한글(HWP, HWPX)은 읽지 못한다.
+HWP·HWPX·docx·pdf 모두 올려도 된다.
 
-폴더에 HWP 파일만 있으면 읽기를 시도하지 말고, 사용자에게 한글에서 docx 또는 pdf로 저장해 다시 올려 달라고 안내한다. 기호(□ ○ -)와 들여쓰기가 살아 있는 docx가 가장 좋다. pdf는 표가 깨질 수 있다.
+- docx·pdf·Google 문서: Drive 커넥터 `read_file_content`로 바로 읽는다.
+- HWP·HWPX: Drive 커넥터가 직접 읽지 못한다. `download_file_content`로 받아 kordoc으로 Markdown 변환한다. 방법은 `references/kordoc.md`의 "Drive 파일 읽기".
+- kordoc을 쓸 수 없는 환경에서 HWP만 있으면, 사용자에게 해당 문서를 docx로 저장해 올리거나 본문을 붙여 달라고 한다.
+- DRM이 걸린 파일은 어느 경로로도 읽지 못한다. 보안 해제본을 올려 달라고 한다.
+
+## 서식 견본 폴더
+
+`00_서식견본` (폴더 ID 1OsPhAbbrudXq-B2EYITszGrTyJzZdjb4)에는 실제 결재 양식 HWPX를 둔다. 내용이 아니라 서식(제목표, 결재란, 글꼴, 부호별 크기)을 가져오는 용도다. 6단계에서 HWPX를 만들 때 kordoc `--template`에 쓴다. 파일명은 `견본_유형.hwpx` (예: `견본_수시.hwpx`).
 
 ## 파일명 규칙
 
