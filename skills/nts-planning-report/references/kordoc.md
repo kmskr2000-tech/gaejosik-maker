@@ -81,7 +81,7 @@ kordoc 견본 모드(`generate --template`)만 쓰면 실제 양식에서 서식
 
 ### 실행
 
-kordoc을 먼저 받아 둔다(`npx -y kordoc --version` 한 번이면 npx 캐시에서 스크립트가 찾는다). 못 찾으면 `npm i --prefix <작업폴더>/.kordoc kordoc` 후 `KORDOC_DIR=<작업폴더>/.kordoc`를 붙여 실행한다. Node.js 20 이상이 필요하다.
+kordoc은 따로 준비하지 않아도 된다. 스크립트가 KORDOC_DIR → 현재 폴더 → npx 캐시(`npm config get cache` 위치까지) → 전역 순으로 찾고, 없으면 임시 폴더(`$TMPDIR/form-hwpx-kordoc`)에 한 번 설치해 쓴다. 네트워크가 막혀 설치가 실패할 때만 `npm i --prefix <작업폴더>/.kordoc kordoc` 후 `KORDOC_DIR=<작업폴더>/.kordoc`를 붙여 실행한다. Node.js 20 이상이 필요하다.
 
 ```bash
 # 양식에서 뽑힌 서식부터 확인

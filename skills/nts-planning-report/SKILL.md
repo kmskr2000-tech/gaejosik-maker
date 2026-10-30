@@ -91,6 +91,8 @@ Google Drive `NTS_보고서_브레인` 폴더. Google Drive 커넥터로 읽는�
 
 기본은 kordoc HWPX. 방법은 `references/kordoc.md`. 4단계에서 양식(HWP·HWPX)을 확인했으면 프리셋 대신 양식 서식으로 만든다(`references/kordoc.md`의 "양식 서식으로 만들기", `scripts/form-hwpx.mjs`). 만든 뒤 스크립트가 알려 준 적용 내역(역할별 글꼴·크기, 간격 줄)을 확인하고, 양식과 다른 부분이 있으면 "판단 필요"에 적는다.
 
+**kordoc 준비**: `form-hwpx.mjs`는 kordoc을 스스로 찾고(설치 폴더, npx 캐시 — npm 캐시가 홈 밖에 있어도 `npm config get cache`로 찾는다, 전역), 없으면 임시 폴더에 한 번 설치한 뒤 만든다. 따로 설치하지 않아도 된다. 네트워크가 막혀 설치까지 실패하면 "kordoc을 찾지도 설치하지도 못했습니다"로 멈추니, 그때는 `npm i --prefix <작업폴더>/.kordoc kordoc` 후 `KORDOC_DIR=<작업폴더>/.kordoc`를 붙여 다시 실행하고, 그래도 안 되면 Markdown 원고까지만 만들고 "판단 필요"에 적는다. `--inspect`(양식 서식 확인)는 kordoc 없이도 동작한다. Node.js 20 이상이 필요하다.
+
 출력 머리와 꼬리:
 
 ```

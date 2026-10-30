@@ -38,9 +38,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/cfb/cfb.js
+// ../nts-report-studio/node_modules/cfb/cfb.js
 var require_cfb = __commonJS({
-  "node_modules/cfb/cfb.js"(exports, module) {
+  "../nts-report-studio/node_modules/cfb/cfb.js"(exports, module) {
     var Base64_map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
     function Base64_encode(input) {
       var o = "";
@@ -1922,9 +1922,9 @@ var require_cfb = __commonJS({
   }
 });
 
-// node_modules/process-nextick-args/index.js
+// ../nts-report-studio/node_modules/process-nextick-args/index.js
 var require_process_nextick_args = __commonJS({
-  "node_modules/process-nextick-args/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/process-nextick-args/index.js"(exports, module) {
     "use strict";
     if (typeof process === "undefined" || !process.version || process.version.indexOf("v0.") === 0 || process.version.indexOf("v1.") === 0 && process.version.indexOf("v1.8.") !== 0) {
       module.exports = { nextTick };
@@ -1967,9 +1967,9 @@ var require_process_nextick_args = __commonJS({
   }
 });
 
-// node_modules/isarray/index.js
+// ../nts-report-studio/node_modules/isarray/index.js
 var require_isarray = __commonJS({
-  "node_modules/isarray/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/isarray/index.js"(exports, module) {
     var toString = {}.toString;
     module.exports = Array.isArray || function(arr) {
       return toString.call(arr) == "[object Array]";
@@ -1977,16 +1977,16 @@ var require_isarray = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/internal/streams/stream.js
+// ../nts-report-studio/node_modules/readable-stream/lib/internal/streams/stream.js
 var require_stream = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module) {
     module.exports = __require("stream");
   }
 });
 
-// node_modules/safe-buffer/index.js
+// ../nts-report-studio/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "node_modules/safe-buffer/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/safe-buffer/index.js"(exports, module) {
     var buffer = __require("buffer");
     var Buffer2 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -2041,9 +2041,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// node_modules/core-util-is/lib/util.js
+// ../nts-report-studio/node_modules/core-util-is/lib/util.js
 var require_util = __commonJS({
-  "node_modules/core-util-is/lib/util.js"(exports) {
+  "../nts-report-studio/node_modules/core-util-is/lib/util.js"(exports) {
     function isArray(arg) {
       if (Array.isArray) {
         return Array.isArray(arg);
@@ -2111,9 +2111,9 @@ var require_util = __commonJS({
   }
 });
 
-// node_modules/inherits/inherits_browser.js
+// ../nts-report-studio/node_modules/inherits/inherits_browser.js
 var require_inherits_browser = __commonJS({
-  "node_modules/inherits/inherits_browser.js"(exports, module) {
+  "../nts-report-studio/node_modules/inherits/inherits_browser.js"(exports, module) {
     if (typeof Object.create === "function") {
       module.exports = function inherits(ctor, superCtor) {
         if (superCtor) {
@@ -2143,9 +2143,9 @@ var require_inherits_browser = __commonJS({
   }
 });
 
-// node_modules/inherits/inherits.js
+// ../nts-report-studio/node_modules/inherits/inherits.js
 var require_inherits = __commonJS({
-  "node_modules/inherits/inherits.js"(exports, module) {
+  "../nts-report-studio/node_modules/inherits/inherits.js"(exports, module) {
     try {
       util = __require("util");
       if (typeof util.inherits !== "function") throw "";
@@ -2157,9 +2157,9 @@ var require_inherits = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/internal/streams/BufferList.js
+// ../nts-report-studio/node_modules/readable-stream/lib/internal/streams/BufferList.js
 var require_BufferList = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/BufferList.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/internal/streams/BufferList.js"(exports, module) {
     "use strict";
     function _classCallCheck(instance, Constructor) {
       if (!(instance instanceof Constructor)) {
@@ -2235,9 +2235,9 @@ var require_BufferList = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/internal/streams/destroy.js
+// ../nts-report-studio/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
     "use strict";
     var pna = require_process_nextick_args();
     function destroy(err, cb) {
@@ -2304,16 +2304,16 @@ var require_destroy = __commonJS({
   }
 });
 
-// node_modules/util-deprecate/node.js
+// ../nts-report-studio/node_modules/util-deprecate/node.js
 var require_node = __commonJS({
-  "node_modules/util-deprecate/node.js"(exports, module) {
+  "../nts-report-studio/node_modules/util-deprecate/node.js"(exports, module) {
     module.exports = __require("util").deprecate;
   }
 });
 
-// node_modules/readable-stream/lib/_stream_writable.js
+// ../nts-report-studio/node_modules/readable-stream/lib/_stream_writable.js
 var require_stream_writable = __commonJS({
-  "node_modules/readable-stream/lib/_stream_writable.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/_stream_writable.js"(exports, module) {
     "use strict";
     var pna = require_process_nextick_args();
     module.exports = Writable;
@@ -2751,9 +2751,9 @@ var require_stream_writable = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/_stream_duplex.js
+// ../nts-report-studio/node_modules/readable-stream/lib/_stream_duplex.js
 var require_stream_duplex = __commonJS({
-  "node_modules/readable-stream/lib/_stream_duplex.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/_stream_duplex.js"(exports, module) {
     "use strict";
     var pna = require_process_nextick_args();
     var objectKeys = Object.keys || function(obj) {
@@ -2828,9 +2828,9 @@ var require_stream_duplex = __commonJS({
   }
 });
 
-// node_modules/string_decoder/lib/string_decoder.js
+// ../nts-report-studio/node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "../nts-report-studio/node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer2 = require_safe_buffer().Buffer;
     var isEncoding = Buffer2.isEncoding || function(encoding) {
@@ -3066,9 +3066,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/_stream_readable.js
+// ../nts-report-studio/node_modules/readable-stream/lib/_stream_readable.js
 var require_stream_readable = __commonJS({
-  "node_modules/readable-stream/lib/_stream_readable.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/_stream_readable.js"(exports, module) {
     "use strict";
     var pna = require_process_nextick_args();
     module.exports = Readable;
@@ -3752,9 +3752,9 @@ var require_stream_readable = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/_stream_transform.js
+// ../nts-report-studio/node_modules/readable-stream/lib/_stream_transform.js
 var require_stream_transform = __commonJS({
-  "node_modules/readable-stream/lib/_stream_transform.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/_stream_transform.js"(exports, module) {
     "use strict";
     module.exports = Transform;
     var Duplex = require_stream_duplex();
@@ -3852,9 +3852,9 @@ var require_stream_transform = __commonJS({
   }
 });
 
-// node_modules/readable-stream/lib/_stream_passthrough.js
+// ../nts-report-studio/node_modules/readable-stream/lib/_stream_passthrough.js
 var require_stream_passthrough = __commonJS({
-  "node_modules/readable-stream/lib/_stream_passthrough.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/lib/_stream_passthrough.js"(exports, module) {
     "use strict";
     module.exports = PassThrough;
     var Transform = require_stream_transform();
@@ -3871,9 +3871,9 @@ var require_stream_passthrough = __commonJS({
   }
 });
 
-// node_modules/readable-stream/readable.js
+// ../nts-report-studio/node_modules/readable-stream/readable.js
 var require_readable = __commonJS({
-  "node_modules/readable-stream/readable.js"(exports, module) {
+  "../nts-report-studio/node_modules/readable-stream/readable.js"(exports, module) {
     var Stream = __require("stream");
     if (process.env.READABLE_STREAM === "disable" && Stream) {
       module.exports = Stream;
@@ -3896,9 +3896,9 @@ var require_readable = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/support.js
+// ../nts-report-studio/node_modules/jszip/lib/support.js
 var require_support = __commonJS({
-  "node_modules/jszip/lib/support.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/support.js"(exports) {
     "use strict";
     exports.base64 = true;
     exports.array = true;
@@ -3936,9 +3936,9 @@ var require_support = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/base64.js
+// ../nts-report-studio/node_modules/jszip/lib/base64.js
 var require_base64 = __commonJS({
-  "node_modules/jszip/lib/base64.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/base64.js"(exports) {
     "use strict";
     var utils = require_utils();
     var support = require_support();
@@ -4013,9 +4013,9 @@ var require_base64 = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/nodejsUtils.js
+// ../nts-report-studio/node_modules/jszip/lib/nodejsUtils.js
 var require_nodejsUtils = __commonJS({
-  "node_modules/jszip/lib/nodejsUtils.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/nodejsUtils.js"(exports, module) {
     "use strict";
     module.exports = {
       /**
@@ -4069,9 +4069,9 @@ var require_nodejsUtils = __commonJS({
   }
 });
 
-// node_modules/immediate/lib/index.js
+// ../nts-report-studio/node_modules/immediate/lib/index.js
 var require_lib = __commonJS({
-  "node_modules/immediate/lib/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/immediate/lib/index.js"(exports, module) {
     "use strict";
     var Mutation = global.MutationObserver || global.WebKitMutationObserver;
     var scheduleDrain;
@@ -4143,9 +4143,9 @@ var require_lib = __commonJS({
   }
 });
 
-// node_modules/lie/lib/index.js
+// ../nts-report-studio/node_modules/lie/lib/index.js
 var require_lib2 = __commonJS({
-  "node_modules/lie/lib/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/lie/lib/index.js"(exports, module) {
     "use strict";
     var immediate = require_lib();
     function INTERNAL() {
@@ -4413,9 +4413,9 @@ var require_lib2 = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/external.js
+// ../nts-report-studio/node_modules/jszip/lib/external.js
 var require_external = __commonJS({
-  "node_modules/jszip/lib/external.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/external.js"(exports, module) {
     "use strict";
     var ES6Promise = null;
     if (typeof Promise !== "undefined") {
@@ -4429,9 +4429,9 @@ var require_external = __commonJS({
   }
 });
 
-// node_modules/setimmediate/setImmediate.js
+// ../nts-report-studio/node_modules/setimmediate/setImmediate.js
 var require_setImmediate = __commonJS({
-  "node_modules/setimmediate/setImmediate.js"(exports) {
+  "../nts-report-studio/node_modules/setimmediate/setImmediate.js"(exports) {
     (function(global2, undefined2) {
       "use strict";
       if (global2.setImmediate) {
@@ -4577,9 +4577,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/utils.js
+// ../nts-report-studio/node_modules/jszip/lib/utils.js
 var require_utils = __commonJS({
-  "node_modules/jszip/lib/utils.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/utils.js"(exports) {
     "use strict";
     var support = require_support();
     var base64 = require_base64();
@@ -4910,9 +4910,9 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/stream/GenericWorker.js
+// ../nts-report-studio/node_modules/jszip/lib/stream/GenericWorker.js
 var require_GenericWorker = __commonJS({
-  "node_modules/jszip/lib/stream/GenericWorker.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/stream/GenericWorker.js"(exports, module) {
     "use strict";
     function GenericWorker(name) {
       this.name = name || "default";
@@ -5137,9 +5137,9 @@ var require_GenericWorker = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/utf8.js
+// ../nts-report-studio/node_modules/jszip/lib/utf8.js
 var require_utf8 = __commonJS({
-  "node_modules/jszip/lib/utf8.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/utf8.js"(exports) {
     "use strict";
     var utils = require_utils();
     var support = require_support();
@@ -5327,9 +5327,9 @@ var require_utf8 = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/stream/ConvertWorker.js
+// ../nts-report-studio/node_modules/jszip/lib/stream/ConvertWorker.js
 var require_ConvertWorker = __commonJS({
-  "node_modules/jszip/lib/stream/ConvertWorker.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/stream/ConvertWorker.js"(exports, module) {
     "use strict";
     var GenericWorker = require_GenericWorker();
     var utils = require_utils();
@@ -5348,9 +5348,9 @@ var require_ConvertWorker = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/nodejs/NodejsStreamOutputAdapter.js
+// ../nts-report-studio/node_modules/jszip/lib/nodejs/NodejsStreamOutputAdapter.js
 var require_NodejsStreamOutputAdapter = __commonJS({
-  "node_modules/jszip/lib/nodejs/NodejsStreamOutputAdapter.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/nodejs/NodejsStreamOutputAdapter.js"(exports, module) {
     "use strict";
     var Readable = require_readable().Readable;
     var utils = require_utils();
@@ -5379,9 +5379,9 @@ var require_NodejsStreamOutputAdapter = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/stream/StreamHelper.js
+// ../nts-report-studio/node_modules/jszip/lib/stream/StreamHelper.js
 var require_StreamHelper = __commonJS({
-  "node_modules/jszip/lib/stream/StreamHelper.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/stream/StreamHelper.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var ConvertWorker = require_ConvertWorker();
@@ -5539,9 +5539,9 @@ var require_StreamHelper = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/defaults.js
+// ../nts-report-studio/node_modules/jszip/lib/defaults.js
 var require_defaults = __commonJS({
-  "node_modules/jszip/lib/defaults.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/defaults.js"(exports) {
     "use strict";
     exports.base64 = false;
     exports.binary = false;
@@ -5556,9 +5556,9 @@ var require_defaults = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/stream/DataWorker.js
+// ../nts-report-studio/node_modules/jszip/lib/stream/DataWorker.js
 var require_DataWorker = __commonJS({
-  "node_modules/jszip/lib/stream/DataWorker.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/stream/DataWorker.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var GenericWorker = require_GenericWorker();
@@ -5644,9 +5644,9 @@ var require_DataWorker = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/crc32.js
+// ../nts-report-studio/node_modules/jszip/lib/crc32.js
 var require_crc32 = __commonJS({
-  "node_modules/jszip/lib/crc32.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/crc32.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     function makeTable() {
@@ -5691,9 +5691,9 @@ var require_crc32 = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/stream/Crc32Probe.js
+// ../nts-report-studio/node_modules/jszip/lib/stream/Crc32Probe.js
 var require_Crc32Probe = __commonJS({
-  "node_modules/jszip/lib/stream/Crc32Probe.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/stream/Crc32Probe.js"(exports, module) {
     "use strict";
     var GenericWorker = require_GenericWorker();
     var crc32 = require_crc32();
@@ -5711,9 +5711,9 @@ var require_Crc32Probe = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/stream/DataLengthProbe.js
+// ../nts-report-studio/node_modules/jszip/lib/stream/DataLengthProbe.js
 var require_DataLengthProbe = __commonJS({
-  "node_modules/jszip/lib/stream/DataLengthProbe.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/stream/DataLengthProbe.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var GenericWorker = require_GenericWorker();
@@ -5734,9 +5734,9 @@ var require_DataLengthProbe = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/compressedObject.js
+// ../nts-report-studio/node_modules/jszip/lib/compressedObject.js
 var require_compressedObject = __commonJS({
-  "node_modules/jszip/lib/compressedObject.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/compressedObject.js"(exports, module) {
     "use strict";
     var external = require_external();
     var DataWorker = require_DataWorker();
@@ -5779,9 +5779,9 @@ var require_compressedObject = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/zipObject.js
+// ../nts-report-studio/node_modules/jszip/lib/zipObject.js
 var require_zipObject = __commonJS({
-  "node_modules/jszip/lib/zipObject.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/zipObject.js"(exports, module) {
     "use strict";
     var StreamHelper = require_StreamHelper();
     var DataWorker = require_DataWorker();
@@ -5896,9 +5896,9 @@ var require_zipObject = __commonJS({
   }
 });
 
-// node_modules/pako/lib/utils/common.js
+// ../nts-report-studio/node_modules/pako/lib/utils/common.js
 var require_common = __commonJS({
-  "node_modules/pako/lib/utils/common.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/utils/common.js"(exports) {
     "use strict";
     var TYPED_OK = typeof Uint8Array !== "undefined" && typeof Uint16Array !== "undefined" && typeof Int32Array !== "undefined";
     function _has(obj, key) {
@@ -5987,9 +5987,9 @@ var require_common = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/trees.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/trees.js
 var require_trees = __commonJS({
-  "node_modules/pako/lib/zlib/trees.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/trees.js"(exports) {
     "use strict";
     var utils = require_common();
     var Z_FIXED = 4;
@@ -6629,9 +6629,9 @@ var require_trees = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/adler32.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/adler32.js
 var require_adler32 = __commonJS({
-  "node_modules/pako/lib/zlib/adler32.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/adler32.js"(exports, module) {
     "use strict";
     function adler32(adler, buf, len, pos) {
       var s1 = adler & 65535 | 0, s2 = adler >>> 16 & 65535 | 0, n = 0;
@@ -6651,9 +6651,9 @@ var require_adler32 = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/crc32.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/crc32.js
 var require_crc322 = __commonJS({
-  "node_modules/pako/lib/zlib/crc32.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/crc32.js"(exports, module) {
     "use strict";
     function makeTable() {
       var c, table = [];
@@ -6679,9 +6679,9 @@ var require_crc322 = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/messages.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/messages.js
 var require_messages = __commonJS({
-  "node_modules/pako/lib/zlib/messages.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/messages.js"(exports, module) {
     "use strict";
     module.exports = {
       2: "need dictionary",
@@ -6706,9 +6706,9 @@ var require_messages = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/deflate.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/deflate.js
 var require_deflate = __commonJS({
-  "node_modules/pako/lib/zlib/deflate.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/deflate.js"(exports) {
     "use strict";
     var utils = require_common();
     var trees = require_trees();
@@ -7755,9 +7755,9 @@ var require_deflate = __commonJS({
   }
 });
 
-// node_modules/pako/lib/utils/strings.js
+// ../nts-report-studio/node_modules/pako/lib/utils/strings.js
 var require_strings = __commonJS({
-  "node_modules/pako/lib/utils/strings.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/utils/strings.js"(exports) {
     "use strict";
     var utils = require_common();
     var STR_APPLY_OK = true;
@@ -7897,9 +7897,9 @@ var require_strings = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/zstream.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/zstream.js
 var require_zstream = __commonJS({
-  "node_modules/pako/lib/zlib/zstream.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/zstream.js"(exports, module) {
     "use strict";
     function ZStream() {
       this.input = null;
@@ -7919,9 +7919,9 @@ var require_zstream = __commonJS({
   }
 });
 
-// node_modules/pako/lib/deflate.js
+// ../nts-report-studio/node_modules/pako/lib/deflate.js
 var require_deflate2 = __commonJS({
-  "node_modules/pako/lib/deflate.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/deflate.js"(exports) {
     "use strict";
     var zlib_deflate = require_deflate();
     var utils = require_common();
@@ -8080,9 +8080,9 @@ var require_deflate2 = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/inffast.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/inffast.js
 var require_inffast = __commonJS({
-  "node_modules/pako/lib/zlib/inffast.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/inffast.js"(exports, module) {
     "use strict";
     var BAD = 30;
     var TYPE = 12;
@@ -8309,9 +8309,9 @@ var require_inffast = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/inftrees.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/inftrees.js
 var require_inftrees = __commonJS({
-  "node_modules/pako/lib/zlib/inftrees.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/inftrees.js"(exports, module) {
     "use strict";
     var utils = require_common();
     var MAXBITS = 15;
@@ -8625,9 +8625,9 @@ var require_inftrees = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/inflate.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/inflate.js
 var require_inflate = __commonJS({
-  "node_modules/pako/lib/zlib/inflate.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/inflate.js"(exports) {
     "use strict";
     var utils = require_common();
     var adler32 = require_adler32();
@@ -9864,9 +9864,9 @@ var require_inflate = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/constants.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/constants.js
 var require_constants = __commonJS({
-  "node_modules/pako/lib/zlib/constants.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/constants.js"(exports, module) {
     "use strict";
     module.exports = {
       /* Allowed flush values; see deflate() and inflate() below for details */
@@ -9911,9 +9911,9 @@ var require_constants = __commonJS({
   }
 });
 
-// node_modules/pako/lib/zlib/gzheader.js
+// ../nts-report-studio/node_modules/pako/lib/zlib/gzheader.js
 var require_gzheader = __commonJS({
-  "node_modules/pako/lib/zlib/gzheader.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/lib/zlib/gzheader.js"(exports, module) {
     "use strict";
     function GZheader() {
       this.text = 0;
@@ -9931,9 +9931,9 @@ var require_gzheader = __commonJS({
   }
 });
 
-// node_modules/pako/lib/inflate.js
+// ../nts-report-studio/node_modules/pako/lib/inflate.js
 var require_inflate2 = __commonJS({
-  "node_modules/pako/lib/inflate.js"(exports) {
+  "../nts-report-studio/node_modules/pako/lib/inflate.js"(exports) {
     "use strict";
     var zlib_inflate = require_inflate();
     var utils = require_common();
@@ -10105,9 +10105,9 @@ var require_inflate2 = __commonJS({
   }
 });
 
-// node_modules/pako/index.js
+// ../nts-report-studio/node_modules/pako/index.js
 var require_pako = __commonJS({
-  "node_modules/pako/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/pako/index.js"(exports, module) {
     "use strict";
     var assign = require_common().assign;
     var deflate = require_deflate2();
@@ -10119,9 +10119,9 @@ var require_pako = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/flate.js
+// ../nts-report-studio/node_modules/jszip/lib/flate.js
 var require_flate = __commonJS({
-  "node_modules/jszip/lib/flate.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/flate.js"(exports) {
     "use strict";
     var USE_TYPEDARRAY = typeof Uint8Array !== "undefined" && typeof Uint16Array !== "undefined" && typeof Uint32Array !== "undefined";
     var pako = require_pako();
@@ -10178,9 +10178,9 @@ var require_flate = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/compressions.js
+// ../nts-report-studio/node_modules/jszip/lib/compressions.js
 var require_compressions = __commonJS({
-  "node_modules/jszip/lib/compressions.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/compressions.js"(exports) {
     "use strict";
     var GenericWorker = require_GenericWorker();
     exports.STORE = {
@@ -10196,9 +10196,9 @@ var require_compressions = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/signature.js
+// ../nts-report-studio/node_modules/jszip/lib/signature.js
 var require_signature = __commonJS({
-  "node_modules/jszip/lib/signature.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/signature.js"(exports) {
     "use strict";
     exports.LOCAL_FILE_HEADER = "PK";
     exports.CENTRAL_FILE_HEADER = "PK";
@@ -10209,9 +10209,9 @@ var require_signature = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/generate/ZipFileWorker.js
+// ../nts-report-studio/node_modules/jszip/lib/generate/ZipFileWorker.js
 var require_ZipFileWorker = __commonJS({
-  "node_modules/jszip/lib/generate/ZipFileWorker.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/generate/ZipFileWorker.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var GenericWorker = require_GenericWorker();
@@ -10493,9 +10493,9 @@ var require_ZipFileWorker = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/generate/index.js
+// ../nts-report-studio/node_modules/jszip/lib/generate/index.js
 var require_generate = __commonJS({
-  "node_modules/jszip/lib/generate/index.js"(exports) {
+  "../nts-report-studio/node_modules/jszip/lib/generate/index.js"(exports) {
     "use strict";
     var compressions = require_compressions();
     var ZipFileWorker = require_ZipFileWorker();
@@ -10534,9 +10534,9 @@ var require_generate = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/nodejs/NodejsStreamInputAdapter.js
+// ../nts-report-studio/node_modules/jszip/lib/nodejs/NodejsStreamInputAdapter.js
 var require_NodejsStreamInputAdapter = __commonJS({
-  "node_modules/jszip/lib/nodejs/NodejsStreamInputAdapter.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/nodejs/NodejsStreamInputAdapter.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var GenericWorker = require_GenericWorker();
@@ -10593,9 +10593,9 @@ var require_NodejsStreamInputAdapter = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/object.js
+// ../nts-report-studio/node_modules/jszip/lib/object.js
 var require_object = __commonJS({
-  "node_modules/jszip/lib/object.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/object.js"(exports, module) {
     "use strict";
     var utf8 = require_utf8();
     var utils = require_utils();
@@ -10866,9 +10866,9 @@ var require_object = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/reader/DataReader.js
+// ../nts-report-studio/node_modules/jszip/lib/reader/DataReader.js
 var require_DataReader = __commonJS({
-  "node_modules/jszip/lib/reader/DataReader.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/reader/DataReader.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     function DataReader(data) {
@@ -10988,9 +10988,9 @@ var require_DataReader = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/reader/ArrayReader.js
+// ../nts-report-studio/node_modules/jszip/lib/reader/ArrayReader.js
 var require_ArrayReader = __commonJS({
-  "node_modules/jszip/lib/reader/ArrayReader.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/reader/ArrayReader.js"(exports, module) {
     "use strict";
     var DataReader = require_DataReader();
     var utils = require_utils();
@@ -11030,9 +11030,9 @@ var require_ArrayReader = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/reader/StringReader.js
+// ../nts-report-studio/node_modules/jszip/lib/reader/StringReader.js
 var require_StringReader = __commonJS({
-  "node_modules/jszip/lib/reader/StringReader.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/reader/StringReader.js"(exports, module) {
     "use strict";
     var DataReader = require_DataReader();
     var utils = require_utils();
@@ -11060,9 +11060,9 @@ var require_StringReader = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/reader/Uint8ArrayReader.js
+// ../nts-report-studio/node_modules/jszip/lib/reader/Uint8ArrayReader.js
 var require_Uint8ArrayReader = __commonJS({
-  "node_modules/jszip/lib/reader/Uint8ArrayReader.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/reader/Uint8ArrayReader.js"(exports, module) {
     "use strict";
     var ArrayReader = require_ArrayReader();
     var utils = require_utils();
@@ -11083,9 +11083,9 @@ var require_Uint8ArrayReader = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/reader/NodeBufferReader.js
+// ../nts-report-studio/node_modules/jszip/lib/reader/NodeBufferReader.js
 var require_NodeBufferReader = __commonJS({
-  "node_modules/jszip/lib/reader/NodeBufferReader.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/reader/NodeBufferReader.js"(exports, module) {
     "use strict";
     var Uint8ArrayReader = require_Uint8ArrayReader();
     var utils = require_utils();
@@ -11103,9 +11103,9 @@ var require_NodeBufferReader = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/reader/readerFor.js
+// ../nts-report-studio/node_modules/jszip/lib/reader/readerFor.js
 var require_readerFor = __commonJS({
-  "node_modules/jszip/lib/reader/readerFor.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/reader/readerFor.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var support = require_support();
@@ -11130,9 +11130,9 @@ var require_readerFor = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/zipEntry.js
+// ../nts-report-studio/node_modules/jszip/lib/zipEntry.js
 var require_zipEntry = __commonJS({
-  "node_modules/jszip/lib/zipEntry.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/zipEntry.js"(exports, module) {
     "use strict";
     var readerFor = require_readerFor();
     var utils = require_utils();
@@ -11348,9 +11348,9 @@ var require_zipEntry = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/zipEntries.js
+// ../nts-report-studio/node_modules/jszip/lib/zipEntries.js
 var require_zipEntries = __commonJS({
-  "node_modules/jszip/lib/zipEntries.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/zipEntries.js"(exports, module) {
     "use strict";
     var readerFor = require_readerFor();
     var utils = require_utils();
@@ -11546,9 +11546,9 @@ var require_zipEntries = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/load.js
+// ../nts-report-studio/node_modules/jszip/lib/load.js
 var require_load = __commonJS({
-  "node_modules/jszip/lib/load.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/load.js"(exports, module) {
     "use strict";
     var utils = require_utils();
     var external = require_external();
@@ -11625,9 +11625,9 @@ var require_load = __commonJS({
   }
 });
 
-// node_modules/jszip/lib/index.js
+// ../nts-report-studio/node_modules/jszip/lib/index.js
 var require_lib3 = __commonJS({
-  "node_modules/jszip/lib/index.js"(exports, module) {
+  "../nts-report-studio/node_modules/jszip/lib/index.js"(exports, module) {
     "use strict";
     function JSZip2() {
       if (!(this instanceof JSZip2)) {
@@ -11662,14 +11662,14 @@ var require_lib3 = __commonJS({
   }
 });
 
-// ../../../tmp/claude-0/-home-user/4317eef2-8e3f-59bd-9112-0739e9c56fef/scratchpad/skillbuild/cli.ts
+// tools/form-hwpx/cli.ts
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { execSync } from "node:child_process";
 
-// src/lib/formStyle.ts
+// ../nts-report-studio/src/lib/formStyle.ts
 var import_cfb = __toESM(require_cfb());
 var import_jszip = __toESM(require_lib3());
 import { inflateRawSync } from "node:zlib";
@@ -12479,27 +12479,49 @@ function describeStyles(styles) {
   }).join(", ");
 }
 
-// ../../../tmp/claude-0/-home-user/4317eef2-8e3f-59bd-9112-0739e9c56fef/scratchpad/skillbuild/cli.ts
-function loadKordoc() {
-  const bases = [];
-  if (process.env.KORDOC_DIR) bases.push(process.env.KORDOC_DIR);
-  bases.push(process.cwd());
-  const npx = path.join(os.homedir(), ".npm", "_npx");
+// tools/form-hwpx/cli.ts
+function sh(cmd) {
   try {
-    for (const d of fs.readdirSync(npx)) if (fs.existsSync(path.join(npx, d, "node_modules", "kordoc"))) bases.push(path.join(npx, d));
+    return execSync(cmd, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
   } catch {
+    return "";
   }
-  try {
-    bases.push(path.dirname(execSync("npm root -g", { encoding: "utf8" }).trim()));
-  } catch {
+}
+function npxBases() {
+  const caches = new Set([path.join(os.homedir(), ".npm"), process.env.npm_config_cache ?? "", sh("npm config get cache")].filter(Boolean));
+  const out = [];
+  for (const c of caches) {
+    const npx = path.join(c, "_npx");
+    try {
+      for (const d of fs.readdirSync(npx)) if (fs.existsSync(path.join(npx, d, "node_modules", "kordoc"))) out.push(path.join(npx, d));
+    } catch {
+    }
   }
+  return out;
+}
+function tryLoad(bases) {
   for (const b of bases) {
     try {
       return createRequire(path.join(b, "noop.js"))("kordoc");
     } catch {
     }
   }
-  throw new Error("kordoc\uC744 \uCC3E\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4. `npm i --prefix <\uD3F4\uB354> kordoc` \uD6C4 KORDOC_DIR=<\uD3F4\uB354> \uB85C \uB2E4\uC2DC \uC2E4\uD589\uD558\uC138\uC694.");
+  return null;
+}
+function loadKordoc() {
+  const here = path.dirname(new URL(import.meta.url).pathname);
+  const auto = path.join(os.tmpdir(), "form-hwpx-kordoc");
+  const bases = [process.env.KORDOC_DIR ?? "", process.cwd(), here, ...npxBases(), path.dirname(sh("npm root -g") || "/nonexistent"), auto].filter(Boolean);
+  const found = tryLoad(bases);
+  if (found) return found;
+  console.error(`kordoc\uC774 \uC5C6\uC5B4 ${auto} \uC5D0 \uC124\uCE58\uD569\uB2C8\uB2E4 (\uD55C \uBC88\uB9CC)\u2026`);
+  try {
+    execSync(`npm i --prefix "${auto}" kordoc@^4 --no-audit --no-fund --loglevel=error`, { stdio: ["ignore", "ignore", "inherit"] });
+  } catch {
+  }
+  const k = tryLoad([auto]);
+  if (k) return k;
+  throw new Error(`kordoc\uC744 \uCC3E\uC9C0\uB3C4 \uC124\uCE58\uD558\uC9C0\uB3C4 \uBABB\uD588\uC2B5\uB2C8\uB2E4(\uB124\uD2B8\uC6CC\uD06C \uD655\uC778). \uC190\uC73C\uB85C \`npm i --prefix <\uD3F4\uB354> kordoc\` \uD6C4 KORDOC_DIR=<\uD3F4\uB354> \uB97C \uBD99\uC5EC \uB2E4\uC2DC \uC2E4\uD589\uD558\uC138\uC694.`);
 }
 function args(argv) {
   const pos = [];

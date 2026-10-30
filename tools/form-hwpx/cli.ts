@@ -31,23 +31,53 @@ import {
 
 type Kordoc = typeof import("kordoc");
 
-function loadKordoc(): Kordoc {
-  const bases: string[] = [];
-  if (process.env.KORDOC_DIR) bases.push(process.env.KORDOC_DIR);
-  bases.push(process.cwd());
-  const npx = path.join(os.homedir(), ".npm", "_npx");
+function sh(cmd: string): string {
   try {
-    for (const d of fs.readdirSync(npx)) if (fs.existsSync(path.join(npx, d, "node_modules", "kordoc"))) bases.push(path.join(npx, d));
-  } catch {}
-  try {
-    bases.push(path.dirname(execSync("npm root -g", { encoding: "utf8" }).trim()));
-  } catch {}
+    return execSync(cmd, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+  } catch {
+    return "";
+  }
+}
+
+/** npx 캐시(_npx/<해시>/node_modules/kordoc)가 있는 폴더들 — 캐시 위치는 환경마다 다르다(npm config get cache) */
+function npxBases(): string[] {
+  const caches = new Set([path.join(os.homedir(), ".npm"), process.env.npm_config_cache ?? "", sh("npm config get cache")].filter(Boolean));
+  const out: string[] = [];
+  for (const c of caches) {
+    const npx = path.join(c, "_npx");
+    try {
+      for (const d of fs.readdirSync(npx)) if (fs.existsSync(path.join(npx, d, "node_modules", "kordoc"))) out.push(path.join(npx, d));
+    } catch {}
+  }
+  return out;
+}
+
+function tryLoad(bases: string[]): Kordoc | null {
   for (const b of bases) {
     try {
       return createRequire(path.join(b, "noop.js"))("kordoc") as Kordoc;
     } catch {}
   }
-  throw new Error("kordoc을 찾지 못했습니다. `npm i --prefix <폴더> kordoc` 후 KORDOC_DIR=<폴더> 로 다시 실행하세요.");
+  return null;
+}
+
+/**
+ * kordoc 찾기: KORDOC_DIR → 현재 폴더 → 스크립트 옆 → npx 캐시 → 전역 → 임시 폴더 설치본.
+ * 모두 없으면 임시 폴더에 직접 설치한다(새 세션마다 손으로 설치하지 않아도 되게).
+ */
+function loadKordoc(): Kordoc {
+  const here = path.dirname(new URL(import.meta.url).pathname);
+  const auto = path.join(os.tmpdir(), "form-hwpx-kordoc");
+  const bases = [process.env.KORDOC_DIR ?? "", process.cwd(), here, ...npxBases(), path.dirname(sh("npm root -g") || "/nonexistent"), auto].filter(Boolean);
+  const found = tryLoad(bases);
+  if (found) return found;
+  console.error(`kordoc이 없어 ${auto} 에 설치합니다 (한 번만)…`);
+  try {
+    execSync(`npm i --prefix "${auto}" kordoc@^4 --no-audit --no-fund --loglevel=error`, { stdio: ["ignore", "ignore", "inherit"] });
+  } catch {}
+  const k = tryLoad([auto]);
+  if (k) return k;
+  throw new Error(`kordoc을 찾지도 설치하지도 못했습니다(네트워크 확인). 손으로 \`npm i --prefix <폴더> kordoc\` 후 KORDOC_DIR=<폴더> 를 붙여 다시 실행하세요.`);
 }
 
 function args(argv: string[]) {
